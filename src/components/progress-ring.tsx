@@ -59,7 +59,7 @@ export function ProgressBar({
   return (
     <div className={`h-2.5 overflow-hidden rounded-full bg-foreground/10 ${className}`}>
       <div
-        className="h-full rounded-full bg-[var(--gradient-primary)] shadow-[0_0_16px_-3px_var(--color-primary)]"
+        className="h-full rounded-full fill-gradient-primary shadow-[0_0_16px_-3px_var(--color-primary)]"
         style={{
           width: `${animate ? value : 0}%`,
           transition: "width 1.5s cubic-bezier(0.16,1,0.3,1)",

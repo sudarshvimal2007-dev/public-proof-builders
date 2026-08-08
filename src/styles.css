@@ -396,3 +396,8 @@
     clip-path: inset(0 var(--rest, 0%) 0 0) !important;
   }
 }
+
+/* primary gradient fill (fill-gradient-primary would set background-color, not image) */
+@utility fill-gradient-primary {
+  background-image: var(--gradient-primary);
+}
