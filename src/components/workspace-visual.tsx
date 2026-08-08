@@ -99,7 +99,7 @@ export function WorkspaceVisual({ progress = 0 }: { progress?: number }) {
                   <p className="label-mono text-[9px]">Day 12 / 60</p>
                   <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-foreground/10">
                     <div
-                      className="h-full rounded-full fill-gradient-primary"
+                      className="h-full rounded-full grad-primary"
                       style={{ width: `${dayProgress}%`, transition: "width 0.4s ease-out" }}
                     />
                   </div>

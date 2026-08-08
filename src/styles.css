@@ -397,7 +397,7 @@
   }
 }
 
-/* primary gradient fill (fill-gradient-primary would set background-color, not image) */
-@utility fill-gradient-primary {
+/* primary gradient fill (grad-primary would set background-color, not image) */
+@utility grad-primary {
   background-image: var(--gradient-primary);
 }

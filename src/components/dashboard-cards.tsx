@@ -127,7 +127,7 @@ export function TaskCard({ locked = false }: { locked?: boolean }) {
         <Link
           to="/day/$day"
           params={{ day: String(todayTask.day) }}
-          className="group mt-6 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl fill-gradient-primary text-sm font-bold tracking-wide text-primary-foreground shadow-[0_16px_40px_-18px_var(--color-primary)] transition-transform active:scale-[0.99]"
+          className="group mt-6 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl grad-primary text-sm font-bold tracking-wide text-primary-foreground shadow-[0_16px_40px_-18px_var(--color-primary)] transition-transform active:scale-[0.99]"
         >
           VIEW TODAY'S TASK
           <ArrowRight

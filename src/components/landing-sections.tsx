@@ -83,7 +83,7 @@ export function JourneySection() {
         {/* vertical line on mobile, horizontal on desktop */}
         <div className="absolute top-0 bottom-0 left-[19px] w-px bg-border lg:top-[38px] lg:right-0 lg:bottom-auto lg:left-0 lg:h-px lg:w-auto">
           <div
-            className="journey-fill h-full w-full fill-gradient-primary"
+            className="journey-fill h-full w-full grad-primary"
             style={
               {
                 clipPath: `inset(0 0 ${100 - fill}% 0)`,
@@ -229,7 +229,7 @@ export function ProgressSection() {
           <div className="relative mt-6">
             <div className="h-2 overflow-hidden rounded-full bg-foreground/10">
               <div
-                className="h-full rounded-full fill-gradient-primary shadow-[0_0_18px_-2px_var(--color-primary)]"
+                className="h-full rounded-full grad-primary shadow-[0_0_18px_-2px_var(--color-primary)]"
                 style={{
                   width: visible ? `${pct}%` : "0%",
                   transition: "width 1.6s cubic-bezier(0.16,1,0.3,1)",
@@ -456,7 +456,7 @@ export function RecruiterSection() {
         <Reveal delay={80}>
           <GlassCard tilt className="p-6 lg:p-8" as="article">
             <div className="flex items-center gap-4">
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl fill-gradient-primary text-lg font-bold text-primary-foreground">
+              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl grad-primary text-lg font-bold text-primary-foreground">
                 {student.initials}
               </span>
               <div className="min-w-0">
@@ -493,7 +493,7 @@ export function RecruiterSection() {
                   </div>
                   <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-foreground/10">
                     <div
-                      className="h-full rounded-full fill-gradient-primary"
+                      className="h-full rounded-full grad-primary"
                       style={{
                         width: visible ? `${m.value}%` : "0%",
                         transition: `width 1.3s cubic-bezier(0.16,1,0.3,1) ${i * 140}ms`,
@@ -570,7 +570,7 @@ export function MagneticButton({
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "";
       }}
-      className="group inline-flex min-h-13 items-center gap-2 rounded-full fill-gradient-primary px-7 text-sm font-bold tracking-wide text-primary-foreground shadow-[0_18px_45px_-18px_var(--color-primary)] transition-[transform,box-shadow] duration-300 hover:shadow-[0_22px_60px_-16px_var(--color-primary)] active:scale-[0.98]"
+      className="group inline-flex min-h-13 items-center gap-2 rounded-full grad-primary px-7 text-sm font-bold tracking-wide text-primary-foreground shadow-[0_18px_45px_-18px_var(--color-primary)] transition-[transform,box-shadow] duration-300 hover:shadow-[0_22px_60px_-16px_var(--color-primary)] active:scale-[0.98]"
     >
       {children}
       <ArrowRight

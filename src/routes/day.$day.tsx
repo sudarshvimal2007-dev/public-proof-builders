@@ -376,7 +376,7 @@ function DayPage() {
               </p>
               <Link
                 to="/dashboard"
-                className="group mt-6 inline-flex min-h-13 items-center gap-2 rounded-2xl fill-gradient-primary px-6 text-sm font-bold text-primary-foreground"
+                className="group mt-6 inline-flex min-h-13 items-center gap-2 rounded-2xl grad-primary px-6 text-sm font-bold text-primary-foreground"
               >
                 BACK TO DASHBOARD
                 <ArrowRight
@@ -410,7 +410,7 @@ function DayPage() {
                 type="button"
                 disabled={!canSubmit}
                 onClick={() => setCompleted(true)}
-                className="mt-6 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl fill-gradient-primary text-sm font-bold tracking-wide text-primary-foreground shadow-[0_16px_40px_-18px_var(--color-primary)] transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-none disabled:bg-secondary disabled:text-muted-foreground disabled:shadow-none"
+                className="mt-6 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl grad-primary text-sm font-bold tracking-wide text-primary-foreground shadow-[0_16px_40px_-18px_var(--color-primary)] transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-none disabled:bg-secondary disabled:text-muted-foreground disabled:shadow-none"
               >
                 {canSubmit ? "SUBMIT DAY " + dayNumber : "ADD BOTH PROOFS TO SUBMIT"}
                 {canSubmit && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
