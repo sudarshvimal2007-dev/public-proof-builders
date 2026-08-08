@@ -84,7 +84,13 @@ export function JourneySection() {
         <div className="absolute top-0 bottom-0 left-[19px] w-px bg-border lg:top-[38px] lg:right-0 lg:bottom-auto lg:left-0 lg:h-px lg:w-auto">
           <div
             className="journey-fill h-full w-full bg-[var(--gradient-primary)]"
-            style={{ clipPath: `inset(0 0 ${100 - fill}% 0)`, transition: "clip-path 0.2s linear" }}
+            style={
+              {
+                clipPath: `inset(0 0 ${100 - fill}% 0)`,
+                transition: "clip-path 0.2s linear",
+                "--rest": `${100 - fill}%`,
+              } as React.CSSProperties
+            }
           />
         </div>
 
