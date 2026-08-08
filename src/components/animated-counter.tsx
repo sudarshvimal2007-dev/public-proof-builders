@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "@/hooks/use-motion";
 
 function format(n: number) {
-  return n.toLocaleString("en-IN");
+  return n.toLocaleString("en-US");
 }
 
 export function AnimatedCounter({

@@ -16,12 +16,15 @@ function RotatingPhrase() {
   }, [reduced]);
 
   return (
-    <span className="relative inline-block h-[1.15em] overflow-hidden align-bottom">
+    <span className="relative inline-grid h-[1.2em] overflow-hidden align-bottom">
+      <span className="invisible col-start-1 row-start-1 whitespace-nowrap">
+        {heroPhrases.reduce((a, b) => (b.length > a.length ? b : a))}
+      </span>
       {heroPhrases.map((phrase, i) => (
         <span
           key={phrase}
           aria-hidden={i !== index}
-          className="absolute inset-x-0 top-0 whitespace-nowrap text-primary"
+          className="col-start-1 row-start-1 whitespace-nowrap text-primary"
           style={{
             animation:
               i === index
