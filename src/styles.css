@@ -6,7 +6,7 @@
 
 /*
  * ABTalks design system.
- * Dark is the default theme (declared on :root), .light overrides.
+ * Dark is default theme (on :root), .light class overrides.
  */
 
 @font-face {
@@ -14,7 +14,6 @@
   src:
     url('/fonts/Deltha.woff2') format('woff2'),
     url('/fonts/Deltha.ttf') format('truetype'),
-    url('https://db.onlinewebfonts.com/t/7cdfb3dd826ec04d2ddf2acdd8d16cab.woff2') format('woff2'),
     local('Deltha'),
     local('Deltha-Regular');
   font-weight: 100 900;
@@ -74,7 +73,7 @@
 :root {
   --radius: 1rem;
 
-  /* dark = default */
+  /* Dark = Default */
   --background: oklch(0.185 0 0);
   --foreground: oklch(0.968 0.002 247);
   --surface: oklch(0.225 0.004 165);
@@ -177,7 +176,7 @@
   }
 }
 
-/* ---------- utilities ---------- */
+/* ---------- Custom Utilities ---------- */
 
 @utility font-logo {
   font-family: var(--font-logo);
@@ -190,6 +189,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@utility grad-primary {
+  background-image: var(--gradient-primary);
 }
 
 @utility label-mono {
@@ -210,6 +213,66 @@
   background: var(--glass);
   backdrop-filter: blur(18px) saturate(150%);
   border: 1px solid var(--color-border);
+}
+
+@utility glass-dropdown {
+  position: relative;
+  background-color: color-mix(in oklch, var(--color-background) 94%, transparent);
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
+  border: 1px solid oklch(1 0 0 / 18%);
+  box-shadow:
+    1px 1px 0 0 oklch(1 0 0 / 25%) inset,
+    -1px -1px 0 0 oklch(0 0 0 / 50%) inset,
+    0 24px 60px -10px oklch(0 0 0 / 90%),
+    0 0 40px oklch(0.735 0.157 156 / 18%);
+
+  .light & {
+    background-color: color-mix(in oklch, var(--color-background) 96%, transparent);
+    backdrop-filter: blur(28px) saturate(210%);
+    -webkit-backdrop-filter: blur(28px) saturate(210%);
+    border: 1px solid oklch(0.19 0.005 165 / 18%);
+    box-shadow:
+      1px 1px 0 0 oklch(1 0 0 / 95%) inset,
+      -1px -1px 0 0 oklch(0.19 0.005 165 / 12%) inset,
+      0 20px 45px -10px oklch(0.19 0.05 165 / 25%),
+      0 0 35px oklch(0.55 0.13 158 / 15%);
+  }
+}
+
+@utility neo-inset {
+  box-shadow:
+    inset 2px 2px 5px oklch(0 0 0 / 45%),
+    inset -2px -2px 5px oklch(1 0 0 / 8%);
+  .light & {
+    box-shadow:
+      inset 2px 2px 5px oklch(0.19 0.05 165 / 15%),
+      inset -2px -2px 5px oklch(1 0 0 / 70%);
+  }
+}
+
+@utility neo-button {
+  box-shadow:
+    2px 2px 6px oklch(0 0 0 / 35%),
+    -1px -1px 3px oklch(1 0 0 / 10%);
+  transition: all 0.2s ease;
+  &:hover {
+    box-shadow:
+      3px 3px 10px oklch(0 0 0 / 45%),
+      -1px -1px 5px oklch(1 0 0 / 15%),
+      0 0 15px oklch(0.735 0.157 156 / 20%);
+  }
+  .light & {
+    box-shadow:
+      2px 2px 6px oklch(0.19 0.05 165 / 12%),
+      -1px -1px 3px oklch(1 0 0 / 80%);
+    &:hover {
+      box-shadow:
+        3px 3px 10px oklch(0.19 0.05 165 / 18%),
+        -1px -1px 5px oklch(1 0 0 / 95%),
+        0 0 15px oklch(0.55 0.13 158 / 18%);
+    }
+  }
 }
 
 @utility card-surface {
@@ -264,6 +327,8 @@
   }
 }
 
+/* ---------- Keyframe Animations & Utilities ---------- */
+
 @keyframes ambient-drift {
   0% {
     transform: translate3d(-4%, -2%, 0) scale(1);
@@ -298,65 +363,6 @@
   }
 }
 
-@keyframes marquee-x {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes slide-up-blur-in {
-  from {
-    opacity: 0;
-    transform: translateY(70%);
-    filter: blur(9px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes slide-up-blur-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-70%);
-    filter: blur(9px);
-  }
-}
-
-@keyframes caret-scan {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes scroll-hint {
-  0% {
-    transform: translateY(-60%);
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(140%);
-    opacity: 0;
-  }
-}
-
 @keyframes pop-in {
   0% {
     opacity: 0;
@@ -368,20 +374,6 @@
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes spark-rise {
-  0% {
-    opacity: 0;
-    transform: translateY(0) scale(0.6);
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-70px) scale(1);
   }
 }
 
@@ -415,21 +407,13 @@
   }
 }
 
-/* journey progress line: vertical on mobile, horizontal on desktop */
+/* Journey progress line responsive styling */
 .journey-fill {
   --fill: 100%;
 }
+
 @media (min-width: 1024px) {
   .journey-fill {
     clip-path: inset(0 var(--rest, 0%) 0 0) !important;
   }
-}
-
-/* primary gradient fill (grad-primary would set background-color, not image) */
-a.grad-primary,
-button.grad-primary,
-span.grad-primary,
-div.grad-primary,
-.grad-primary {
-  background-image: var(--gradient-primary);
 }

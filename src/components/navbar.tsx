@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import {
   Menu,
   X,
@@ -15,18 +15,18 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
-  { label: "Challenge", href: "/#challenge", isRoute: false },
-  { label: "How It Works", href: "/#how-it-works", isRoute: false },
-  { label: "Leaderboard", href: "/#leaderboard", isRoute: false },
-  { label: "About", href: "/#about", isRoute: false },
-  { label: "Dashboard", href: "/dashboard", isRoute: true },
+  { label: "Challenge", to: "/challenge" },
+  { label: "How It Works", to: "/how-it-works" },
+  { label: "Leaderboard", to: "/leaderboard" },
+  { label: "About", to: "/about" },
+  { label: "Dashboard", to: "/dashboard" },
 ];
 
 export function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Challenge");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<{ name: string; email: string } | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -97,8 +97,10 @@ export function Navbar() {
   };
 
   const getInitials = (name: string) => {
-    const parts = name.trim().split(" ");
-    if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length >= 2 && parts[0]?.[0] && parts[1]?.[0]) {
+      return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    }
     return name.slice(0, 2).toUpperCase();
   };
 
@@ -129,47 +131,30 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Centered Navigation Links (including Dashboard) */}
+          {/* Centered Navigation Links */}
           <ul className="hidden flex-1 items-center justify-center gap-2 lg:flex">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.isRoute ? (
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
+                <li key={link.label}>
                   <Link
-                    to="/dashboard"
-                    onClick={() => setActive(link.label)}
+                    to={link.to}
                     className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                      active === link.label
-                        ? "text-foreground"
+                      isActive
+                        ? "text-foreground font-bold"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {link.label}
                     <span
                       className={`absolute inset-x-4 -bottom-0.5 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent transition-opacity duration-300 ${
-                        active === link.label ? "opacity-100" : "opacity-0"
+                        isActive ? "opacity-100" : "opacity-0"
                       }`}
                     />
                   </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    onClick={() => setActive(link.label)}
-                    className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                      active === link.label
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {link.label}
-                    <span
-                      className={`absolute inset-x-4 -bottom-0.5 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent transition-opacity duration-300 ${
-                        active === link.label ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                  </a>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
 
           {/* Right Action Items */}
@@ -182,105 +167,115 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen((v) => !v)}
-                  className="group flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 p-1 pr-3 text-xs font-semibold text-foreground transition-all hover:border-primary/60 hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  className="group flex items-center gap-2.5 rounded-full border border-primary/35 bg-primary/10 p-1 pr-3.5 text-xs font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_oklch(0.735_0.157_156_/_25%)] focus:outline-none focus:ring-2 focus:ring-primary/40 active:scale-95"
                   aria-expanded={userMenuOpen}
                   aria-label="User profile menu"
                 >
-                  <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground shadow-sm">
+                  <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary via-primary to-primary-soft font-bold text-primary-foreground shadow-md transition-transform duration-300 group-hover:scale-105">
                     {getInitials(userProfile.name)}
-                    <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-background bg-emerald-500" />
+                    <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-background bg-emerald-400 shadow-sm" />
+                    <span className="absolute bottom-0 right-0 h-2.5 w-2.5 animate-ping rounded-full bg-emerald-400/70" />
                   </span>
-                  <span className="hidden max-w-[100px] truncate text-xs font-bold sm:inline-block">
+                  <span className="hidden max-w-[110px] truncate text-xs font-extrabold tracking-wide sm:inline-block">
                     {userProfile.name.split(" ")[0]}
                   </span>
                   <ChevronDown
-                    className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${
-                      userMenuOpen ? "rotate-180 text-foreground" : ""
+                    className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 ${
+                      userMenuOpen ? "rotate-180 text-primary" : "group-hover:text-foreground"
                     }`}
                   />
                 </button>
 
-                {/* Animated Glassmorphism Dropdown Menu */}
+                {/* Animated Glassmorphism & Neomorphism Dropdown Menu */}
                 {userMenuOpen && (
-                  <div className="animate-pop-in absolute right-0 top-12 z-50 w-70 origin-top-right overflow-hidden rounded-3xl border border-primary/30 bg-background/55 p-3 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85)] backdrop-blur-2xl backdrop-saturate-200">
-                    {/* Ambient Glow Orbs */}
-                    <div className="pointer-events-none absolute -top-12 -left-12 h-32 w-32 rounded-full bg-primary/25 blur-2xl" />
-                    <div className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-primary/20 blur-2xl" />
+                  <div className="animate-pop-in absolute right-0 top-12 z-50 w-72 origin-top-right overflow-hidden rounded-3xl glass-dropdown bg-background/95 p-3.5 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.95)] backdrop-blur-2xl transition-all">
+                    {/* Specular Highlight Top Edge */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent"
+                    />
 
-                    {/* User Header Badge */}
-                    <div className="relative rounded-2xl border border-primary/25 bg-primary/10 p-3 backdrop-blur-md">
+                    {/* Subtle Ambient Glow Orbs */}
+                    <div className="pointer-events-none absolute -top-12 -left-12 h-36 w-36 rounded-full bg-primary/20 blur-3xl opacity-70" />
+                    <div className="pointer-events-none absolute -bottom-12 -right-12 h-36 w-36 rounded-full bg-primary/15 blur-3xl opacity-70" />
+
+                    {/* Neomorphic User Header Card */}
+                    <div className="relative neo-inset overflow-hidden rounded-2xl border border-primary/30 bg-surface/90 p-3.5 backdrop-blur-xl">
                       <div className="flex items-center gap-3">
-                        <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-primary-foreground shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+                        <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary via-primary to-primary-soft text-sm font-black text-primary-foreground shadow-[0_4px_14px_rgba(0,0,0,0.5)] ring-2 ring-primary/40">
                           {getInitials(userProfile.name)}
                           <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-background bg-emerald-400" />
                         </div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-extrabold text-foreground">
                             {userProfile.name}
                           </p>
-                          <p className="truncate text-[11px] text-muted-foreground">
+                          <p className="truncate text-[11px] font-semibold text-muted-foreground">
                             {userProfile.email}
                           </p>
                         </div>
                       </div>
-                      <div className="mt-3 flex items-center justify-between rounded-xl border border-primary/20 bg-background/60 px-3 py-1.5 backdrop-blur-md">
-                        <span className="text-[11px] font-semibold text-muted-foreground">
+
+                      <div className="mt-3 flex items-center justify-between rounded-xl border border-primary/25 bg-background/80 px-3 py-1.5 shadow-inner">
+                        <span className="text-[11px] font-bold text-muted-foreground">
                           Challenge Streak
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] font-bold text-primary">
-                          <Flame className="h-3.5 w-3.5 fill-primary/30" />
+                        <span className="flex items-center gap-1.5 text-[11px] font-extrabold text-primary">
+                          <Flame className="h-3.5 w-3.5 fill-primary/40 animate-flame text-primary" />
                           12 Days 🔥
                         </span>
                       </div>
                     </div>
 
-                    {/* Menu Options with Frosted Glass FX */}
-                    <div className="relative mt-2 space-y-1">
+                    {/* Neomorphic Menu Items */}
+                    <div className="relative mt-3 space-y-1.5">
                       <Link
                         to="/dashboard"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold text-foreground transition-all hover:bg-primary/15 hover:backdrop-blur-lg hover:translate-x-0.5"
+                        className="group neo-button flex items-center gap-3 rounded-xl border border-border/80 bg-surface/80 px-3.5 py-2.5 text-xs font-extrabold text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/20 hover:text-foreground hover:translate-x-1"
                       >
-                        <div className="grid h-7 w-7 place-items-center rounded-lg border border-primary/30 bg-primary/10">
-                          <LayoutDashboard className="h-3.5 w-3.5 text-primary" />
+                        <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-primary/40 bg-primary/20 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-primary">
+                          <LayoutDashboard className="h-4 w-4 text-primary" />
                         </div>
-                        <span>Dashboard</span>
+                        <span className="flex-1">Dashboard</span>
+                        <span className="rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-extrabold text-primary">⌘D</span>
                       </Link>
 
                       <Link
                         to="/day/$day"
                         params={{ day: "12" }}
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold text-foreground transition-all hover:bg-primary/15 hover:backdrop-blur-lg hover:translate-x-0.5"
+                        className="group neo-button flex items-center gap-3 rounded-xl border border-border/80 bg-surface/80 px-3.5 py-2.5 text-xs font-extrabold text-foreground transition-all duration-200 hover:border-warning/50 hover:bg-warning/20 hover:text-foreground hover:translate-x-1"
                       >
-                        <div className="grid h-7 w-7 place-items-center rounded-lg border border-warning/30 bg-warning/10">
-                          <Sparkles className="h-3.5 w-3.5 text-warning" />
+                        <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-warning/40 bg-warning/20 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-warning">
+                          <Sparkles className="h-4 w-4 text-warning" />
                         </div>
-                        <span>Today's Task (Day 12)</span>
+                        <span className="flex-1">Today's Task (Day 12)</span>
+                        <span className="rounded bg-warning/25 px-1.5 py-0.5 text-[9px] font-extrabold text-warning shadow-sm">NEW</span>
                       </Link>
 
                       <Link
                         to="/dashboard"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold text-foreground transition-all hover:bg-primary/15 hover:backdrop-blur-lg hover:translate-x-0.5"
+                        className="group neo-button flex items-center gap-3 rounded-xl border border-border/80 bg-surface/80 px-3.5 py-2.5 text-xs font-extrabold text-foreground transition-all duration-200 hover:border-primary/40 hover:bg-primary/15 hover:text-foreground hover:translate-x-1"
                       >
-                        <div className="grid h-7 w-7 place-items-center rounded-lg border border-border bg-background/50">
-                          <User className="h-3.5 w-3.5 text-muted-foreground" />
+                        <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-border bg-background/90 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-primary/40">
+                          <User className="h-4 w-4 text-muted-foreground group-hover:text-foreground" />
                         </div>
-                        <span>Profile & Settings</span>
+                        <span className="flex-1">Profile & Settings</span>
                       </Link>
 
-                      <div className="my-1.5 h-px bg-border/60" />
+                      <div className="my-2.5 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
                       <button
                         type="button"
                         onClick={handleLogout}
-                        className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold text-destructive transition-all hover:bg-destructive/15 hover:backdrop-blur-lg hover:translate-x-0.5"
+                        className="group neo-button flex w-full items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-xs font-extrabold text-destructive transition-all duration-200 hover:border-destructive/60 hover:bg-destructive/25 hover:translate-x-1"
                       >
-                        <div className="grid h-7 w-7 place-items-center rounded-lg border border-destructive/30 bg-destructive/10">
-                          <LogOut className="h-3.5 w-3.5 text-destructive" />
+                        <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-destructive/40 bg-destructive/20 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-destructive">
+                          <LogOut className="h-4 w-4 text-destructive" />
                         </div>
-                        <span>Log Out</span>
+                        <span className="flex-1">Log Out</span>
                       </button>
                     </div>
                   </div>
@@ -323,35 +318,25 @@ export function Navbar() {
       >
         <div className="glass-panel overflow-hidden rounded-3xl p-3 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.8)]">
           <ul className="space-y-1">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.isRoute ? (
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
+                <li key={link.label}>
                   <Link
-                    to="/dashboard"
-                    onClick={() => {
-                      setActive(link.label);
-                      setOpen(false);
-                    }}
-                    className="flex min-h-12 items-center justify-between rounded-2xl px-4 text-base font-medium text-foreground transition-colors hover:bg-secondary"
+                    to={link.to}
+                    onClick={() => setOpen(false)}
+                    className={`flex min-h-12 items-center justify-between rounded-2xl px-4 text-base font-medium transition-colors ${
+                      isActive
+                        ? "bg-primary/15 text-primary font-bold border border-primary/30"
+                        : "text-foreground hover:bg-secondary"
+                    }`}
                   >
                     {link.label}
                     <ArrowUpRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    onClick={() => {
-                      setActive(link.label);
-                      setOpen(false);
-                    }}
-                    className="flex min-h-12 items-center justify-between rounded-2xl px-4 text-base font-medium text-foreground transition-colors hover:bg-secondary"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                  </a>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="mt-3 border-t border-border pt-3">

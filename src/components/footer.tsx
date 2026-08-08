@@ -40,24 +40,24 @@ export function Footer() {
             <p className="label-mono">Platform</p>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
-                <a href="/#challenge" className="text-muted-foreground hover:text-foreground">
+                <Link to="/challenge" className="text-muted-foreground hover:text-foreground">
                   Challenge
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/#leaderboard" className="text-muted-foreground hover:text-foreground">
-                  Leaderboard
-                </a>
-              </li>
-              <li>
-                <a href="/#how-it-works" className="text-muted-foreground hover:text-foreground">
+                <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground">
                   How It Works
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/#about" className="text-muted-foreground hover:text-foreground">
+                <Link to="/leaderboard" className="text-muted-foreground hover:text-foreground">
+                  Leaderboard
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-muted-foreground hover:text-foreground">
                   About
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

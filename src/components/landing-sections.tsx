@@ -1,4 +1,4 @@
-import { ArrowRight, Flame, Trophy, Users, GitCommitHorizontal, Megaphone } from "lucide-react";
+import { ArrowRight, Flame, Trophy, Users, GitCommitHorizontal, Megaphone, Code2, GitBranch, Lock } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { GlassCard } from "@/components/glass-card";
 import { Reveal, SectionHeading } from "@/components/reveal";
@@ -36,7 +36,7 @@ export function WhySection() {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-6">
         {whyCards.map((card, i) => {
-          const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[card.icon]!;
+          const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[card.icon] || Icons.Sparkles;
           return (
             <Reveal key={card.title} delay={i * 90}>
               <GlassCard tilt className="h-full p-6 lg:p-7">
@@ -96,7 +96,7 @@ export function JourneySection() {
 
         <ol className="grid gap-8 lg:grid-cols-4 lg:gap-6">
           {journeySteps.map((step, i) => {
-            const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[step.icon]!;
+            const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[step.icon] || Icons.Sparkles;
             const reached = fill > i * 25;
             return (
               <Reveal as="li" key={step.num} delay={i * 100} className="relative pl-14 lg:pl-0">
@@ -317,7 +317,7 @@ export function AchievementsSection() {
                 {a.unlocked ? (
                   <Trophy className="ml-auto h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                 ) : (
-                  <Icons.Lock
+                  <Lock
                     className="ml-auto h-4 w-4 shrink-0 text-muted-foreground"
                     aria-hidden="true"
                   />
@@ -420,8 +420,8 @@ export function RecruiterSection() {
   const { ref, visible } = useInView<HTMLDivElement>(0.25);
   const stats = [
     { icon: Flame, label: "Day Streak", value: student.streak + 30 },
-    { icon: Icons.Code2, label: "Projects", value: student.projects },
-    { icon: Icons.GitBranch, label: "Commits", value: student.commits },
+    { icon: Code2, label: "Projects", value: student.projects },
+    { icon: GitBranch, label: "Commits", value: student.commits },
     { icon: Megaphone, label: "Public Posts", value: student.posts },
   ];
 
