@@ -58,8 +58,8 @@ function Dashboard() {
         <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="label-mono">Day {cfg.day} of {student.totalDays}</p>
-            <h1 className="mt-2 truncate text-3xl font-bold sm:text-4xl">
-              Good evening, {student.firstName} 👋
+            <h1 className="mt-2 text-3xl font-bold text-balance sm:text-4xl">
+              Good evening, {student.firstName}
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
               {cfg.streak > 0
