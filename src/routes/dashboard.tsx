@@ -97,14 +97,14 @@ function Dashboard() {
         </div>
 
         <div className="mt-6 space-y-4 lg:grid lg:grid-cols-[1.35fr_1fr] lg:items-start lg:gap-6 lg:space-y-0">
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <StateNotice state={state} />
             {state === "empty" ? <TaskCard locked /> : <TaskCard />}
             <SubmissionStatus github={cfg.github} linkedin={cfg.linkedin} />
             <AchievementStrip />
           </div>
 
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <StreakCard streak={cfg.streak} best={cfg.best} />
             <ChallengeProgress day={cfg.day} total={student.totalDays} />
             <LeaderboardPreview />
