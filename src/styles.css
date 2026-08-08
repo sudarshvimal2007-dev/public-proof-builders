@@ -386,3 +386,13 @@
     transform: none !important;
   }
 }
+
+/* journey progress line: vertical on mobile, horizontal on desktop */
+.journey-fill {
+  --fill: 100%;
+}
+@media (min-width: 1024px) {
+  .journey-fill {
+    clip-path: inset(0 var(--rest, 0%) 0 0) !important;
+  }
+}
