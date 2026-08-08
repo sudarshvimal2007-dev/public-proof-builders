@@ -9,6 +9,27 @@
  * Dark is the default theme (declared on :root), .light overrides.
  */
 
+@font-face {
+  font-family: 'Deltha';
+  src:
+    url('/fonts/Deltha.woff2') format('woff2'),
+    url('/fonts/Deltha.ttf') format('truetype'),
+    url('https://db.onlinewebfonts.com/t/7cdfb3dd826ec04d2ddf2acdd8d16cab.woff2') format('woff2'),
+    local('Deltha'),
+    local('Deltha-Regular');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qadone';
+  src: local('Qadone'), local('Qadone-Regular'), local('Qadone Regular'), local('Qadone Bold');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 3px);
@@ -17,8 +38,9 @@
   --radius-2xl: calc(var(--radius) + 12px);
   --radius-3xl: calc(var(--radius) + 20px);
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-logo: "Deltha", "Qadone", "Syne", "Dela Gothic One", sans-serif;
+  --font-display: "Urbanist", sans-serif;
+  --font-sans: "Urbanist", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
@@ -156,6 +178,12 @@
 }
 
 /* ---------- utilities ---------- */
+
+@utility font-logo {
+  font-family: var(--font-logo);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
 
 @utility text-gradient {
   background: var(--gradient-text);
