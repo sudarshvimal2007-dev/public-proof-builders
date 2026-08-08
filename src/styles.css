@@ -398,6 +398,10 @@
 }
 
 /* primary gradient fill (grad-primary would set background-color, not image) */
-@utility grad-primary {
+a.grad-primary,
+button.grad-primary,
+span.grad-primary,
+div.grad-primary,
+.grad-primary {
   background-image: var(--gradient-primary);
 }
