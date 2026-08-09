@@ -297,15 +297,11 @@ export function Navbar() {
               </div>
             ) : (
               /* First-Time Log In Button */
-              <Link
-                to="/login"
-                className="group inline-flex items-center gap-2 rounded-full liquid-glass-btn px-6 py-2.5 text-xs font-black tracking-wider uppercase shadow-[0_6px_25px_-4px_oklch(0.735_0.157_156_/_55%)] transition-all hover:scale-105 active:scale-95"
-              >
-                Log In
-                <ArrowUpRight
-                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden="true"
-                />
+              <Link to="/login" className="golden-glow-btn h-10 w-36">
+                <span className="golden-glow-btn-inner font-extrabold">
+                  Log In
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </span>
               </Link>
             )}
 
@@ -385,10 +381,12 @@ export function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setOpen(false)}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-2xl liquid-glass-btn text-sm font-extrabold uppercase tracking-wider shadow-lg transition-all active:scale-98"
+                className="golden-glow-btn h-12 w-full"
               >
-                Log In
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                <span className="golden-glow-btn-inner text-base font-extrabold">
+                  Log In
+                  <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+                </span>
               </Link>
             )}
           </div>

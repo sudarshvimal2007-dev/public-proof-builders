@@ -226,20 +226,22 @@ export function LoginPage() {
             <button
               type="submit"
               disabled={loading || success}
-              className="group relative mt-3 flex min-h-12 w-full items-center justify-center gap-2.5 rounded-2xl liquid-glass-btn text-base font-extrabold shadow-[0_10px_35px_-5px_oklch(0.735_0.157_156_/_50%)] transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-70"
+              className="golden-glow-btn mt-3 min-h-12 w-full disabled:opacity-70"
             >
-              {loading ? (
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-              ) : success ? (
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-950" /> Authenticated!
-                </span>
-              ) : (
-                <>
-                  {mode === "login" ? "Sign In" : "Start 60-Day Challenge"}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </>
-              )}
+              <span className="golden-glow-btn-inner text-sm font-extrabold">
+                {loading ? (
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#ffd277] border-t-transparent" />
+                ) : success ? (
+                  <span className="flex items-center gap-1.5 text-emerald-400">
+                    <CheckCircle2 className="h-5 w-5" /> Authenticated!
+                  </span>
+                ) : (
+                  <>
+                    {mode === "login" ? "Sign In" : "Start 60-Day Challenge"}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
+              </span>
             </button>
           </form>
 
