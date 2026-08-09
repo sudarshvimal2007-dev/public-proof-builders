@@ -160,16 +160,17 @@ export function TaskCard({ day = 1, locked = false }: { day?: number; locked?: b
 /* ---------- Submission status ---------- */
 
 export function SubmissionStatus({
-  day = 1,
+  day,
   github = false,
   linkedin = false,
   onProofUpdate,
 }: {
-  day?: number;
+  day: number;
   github?: boolean;
   linkedin?: boolean;
   onProofUpdate?: (proofs: { github: boolean; linkedin: boolean }) => void;
 }) {
+  const storageKey = `abtalks_proof_day_${day}`;
   const [githubUrl, setGithubUrl] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState("");
   const [githubSubmitted, setGithubSubmitted] = useState(github);
@@ -183,7 +184,8 @@ export function SubmissionStatus({
   // Load saved proof submissions from localStorage for current day
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(`abtalks_proof_day_${day}`);
+      if (typeof window === "undefined") return;
+      const stored = localStorage.getItem(storageKey);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed.githubUrl) {
@@ -202,12 +204,13 @@ export function SubmissionStatus({
       setGithubSubmitted(github);
       setLinkedinSubmitted(linkedin);
     }
-  }, [day, github, linkedin, STORAGE_KEY]);
+  }, [day, github, linkedin, storageKey]);
 
   const saveState = (gUrl: string, gSubmitted: boolean, lUrl: string, lSubmitted: boolean) => {
     try {
+      if (typeof window === "undefined") return;
       localStorage.setItem(
-        STORAGE_KEY,
+        storageKey,
         JSON.stringify({
           day,
           githubUrl: gUrl,
