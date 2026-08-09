@@ -57,12 +57,13 @@ function Dashboard() {
         if (parsed?.name) {
           setUserName(parsed.name.split(" ")[0]);
         }
-        // Force first-day state for first-time login users
-        if (!parsed?.currentDay || parsed?.currentDay === 1 || parsed?.isFirstTime) {
-          setState("first-day");
-        } else if (parsed?.currentDay === 12) {
-          setState("active");
+        // Always overwrite legacy 12 currentDay with Day 1
+        if (parsed?.currentDay === 12 || !parsed?.currentDay) {
+          parsed.currentDay = 1;
+          parsed.isFirstTime = true;
+          localStorage.setItem("abtalks_user", JSON.stringify(parsed));
         }
+        setState("first-day");
         if (typeof parsed?.streak === "number") {
           setUserStreak(parsed.streak);
         }

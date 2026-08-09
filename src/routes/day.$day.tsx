@@ -23,9 +23,9 @@ import { GlassCard } from "@/components/glass-card";
 import { ProgressBar } from "@/components/progress-ring";
 import { student, todayTask } from "@/data/abtalks";
 
-const title = "Day 12 — Build a Responsive Developer Portfolio Hero | ABTalks";
+const title = "Day 1 — Build a Responsive Developer Portfolio Hero | ABTalks";
 const description =
-  "Day 12 of the ABTalks 60-day challenge: build a responsive developer portfolio hero, commit it to GitHub, and share your progress on LinkedIn.";
+  "Day 1 of the ABTalks 60-day challenge: build a responsive developer portfolio hero, commit it to GitHub, and share your progress on LinkedIn.";
 
 export const Route = createFileRoute("/day/$day")({
   head: () => ({

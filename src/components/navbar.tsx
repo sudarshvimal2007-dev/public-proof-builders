@@ -28,7 +28,12 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState<{ name: string; email: string } | null>(null);
+  const [userProfile, setUserProfile] = useState<{
+    name: string;
+    email: string;
+    streak: number;
+    currentDay: number;
+  } | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +47,8 @@ export function Navbar() {
           setUserProfile({
             name: parsed.name || "Builder",
             email: parsed.email || "builder@abtalks.dev",
+            streak: typeof parsed.streak === "number" ? parsed.streak : 0,
+            currentDay: parsed.currentDay || 1,
           });
           return;
         }
@@ -222,7 +229,7 @@ export function Navbar() {
                         </span>
                         <span className="flex items-center gap-1.5 text-[11px] font-extrabold text-primary">
                           <Flame className="h-3.5 w-3.5 fill-primary/40 animate-flame text-primary" />
-                          12 Days 🔥
+                          {userProfile?.streak ?? 0} Day{(userProfile?.streak ?? 0) === 1 ? "" : "s"} 🔥
                         </span>
                       </div>
                     </div>
@@ -243,14 +250,14 @@ export function Navbar() {
 
                       <Link
                         to="/day/$day"
-                        params={{ day: "12" }}
+                        params={{ day: String(userProfile?.currentDay ?? 1) }}
                         onClick={() => setUserMenuOpen(false)}
                         className="group neo-button flex items-center gap-3 rounded-xl border border-border/80 bg-surface/80 px-3.5 py-2.5 text-xs font-extrabold text-foreground transition-all duration-200 hover:border-warning/50 hover:bg-warning/20 hover:text-foreground hover:translate-x-1"
                       >
                         <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-warning/40 bg-warning/20 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-warning">
                           <Sparkles className="h-4 w-4 text-warning" />
                         </div>
-                        <span className="flex-1">Today's Task (Day 12)</span>
+                        <span className="flex-1">Today's Task (Day {userProfile?.currentDay ?? 1})</span>
                         <span className="rounded bg-warning/25 px-1.5 py-0.5 text-[9px] font-extrabold text-warning shadow-sm">NEW</span>
                       </Link>
 
