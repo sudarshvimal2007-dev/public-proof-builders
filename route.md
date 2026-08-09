@@ -1,0 +1,57 @@
+# ABTalks Route Map
+
+This file documents the current route structure of the application and the main pages available in the project.
+
+## Main Routes
+
+- `/` — Landing page
+  - File: `src/routes/index.tsx`
+  - Purpose: Public landing page for ABTalks challenge
+
+- `/about` — About page
+  - File: `src/routes/about.tsx`
+  - Purpose: Mission, values, recruiter context, testimonials
+
+- `/challenge` — Challenge page
+  - File: `src/routes/challenge.tsx`
+  - Purpose: The 60-day challenge overview and rules
+
+- `/dashboard` — Dashboard page
+  - File: `src/routes/dashboard.tsx`
+  - Purpose: User progress, streaks, tasks, proofs, achievements
+
+- `/how-it-works` — How It Works page
+  - File: `src/routes/how-it-works.tsx`
+  - Purpose: Explains the step-by-step workflow of the challenge
+
+- `/leaderboard` — Leaderboard page
+  - File: `src/routes/leaderboard.tsx`
+  - Purpose: Community ranking and progress tracking
+
+- `/login` — Login page
+  - File: `src/routes/login.tsx`
+  - Purpose: Authentication entry flow
+
+- `/day/$day` — Dynamic daily challenge route
+  - File: `src/routes/day.$day.tsx`
+  - Purpose: Individual day task details for a given day number
+
+## Route Tree Summary
+
+```text
+__root__
+├── /
+├── /about
+├── /challenge
+├── /dashboard
+├── /how-it-works
+├── /leaderboard
+├── /login
+└── /day/$day
+```
+
+## Notes
+
+- The app uses TanStack Router.
+- The generated route metadata is stored in `src/routeTree.gen.ts`.
+- Route links are defined in `src/components/navbar.tsx` and used throughout the app.
