@@ -11,9 +11,9 @@ export const student = {
   role: "Frontend Developer",
   college: "VIT Bhopal",
   initials: "AV",
-  currentDay: 12,
+  currentDay: 1,
   totalDays: 60,
-  streak: 12,
+  streak: 0,
   bestStreak: 18,
   xp: 1450,
   projects: 38,
@@ -220,7 +220,7 @@ export const testimonials = [
 ];
 
 export const todayTask = {
-  day: 12,
+  day: 1,
   title: "Build a Responsive Developer Portfolio Hero",
   summary:
     "Design and build a portfolio hero section that works at 390px and scales cleanly to desktop. It should introduce you, state what you build, and include one clear call to action.",

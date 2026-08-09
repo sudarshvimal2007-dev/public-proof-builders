@@ -85,11 +85,11 @@ export function ChallengeProgress({ day, total }: { day: number; total: number }
 
 /* ---------- Today's task ---------- */
 
-export function TaskCard({ locked = false }: { locked?: boolean }) {
+export function TaskCard({ day = 1, locked = false }: { day?: number; locked?: boolean }) {
   return (
     <GlassCard tilt className="p-6 lg:p-7">
       <div className="flex items-center justify-between gap-3">
-        <span className="label-mono">Today · Day {todayTask.day}</span>
+        <span className="label-mono">Today · Day {day}</span>
         <span className="flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary">
           <Target className="h-3 w-3" aria-hidden="true" />
           In progress
@@ -133,7 +133,7 @@ export function TaskCard({ locked = false }: { locked?: boolean }) {
       ) : (
         <Link
           to="/day/$day"
-          params={{ day: String(todayTask.day) }}
+          params={{ day: String(day) }}
           className="group mt-6 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl grad-primary text-sm font-bold tracking-wide text-primary-foreground shadow-[0_16px_40px_-18px_var(--color-primary)] transition-transform active:scale-[0.99]"
         >
           VIEW TODAY'S TASK
@@ -513,7 +513,7 @@ export function AchievementStrip() {
 
 /* ---------- Leaderboard preview ---------- */
 
-export function LeaderboardPreview() {
+export function LeaderboardPreview({ streak = 0 }: { streak?: number }) {
   return (
     <GlassCard className="p-6">
       <p className="label-mono">Your standing</p>
@@ -521,7 +521,7 @@ export function LeaderboardPreview() {
         <span className="num-display text-5xl leading-none font-bold">#{student.rank}</span>
         <span className="flex items-center gap-1.5 pb-1 text-sm font-semibold">
           <Flame className="h-4 w-4 text-flame" aria-hidden="true" />
-          {student.streak} days
+          {streak} day{streak === 1 ? "" : "s"}
         </span>
       </div>
       <p className="mt-4 rounded-2xl border border-primary/25 bg-primary/8 px-4 py-3 text-sm">

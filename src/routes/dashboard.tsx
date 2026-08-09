@@ -144,7 +144,7 @@ function Dashboard() {
         <div className="mt-6 space-y-4 lg:grid lg:grid-cols-[1.35fr_1fr] lg:items-start lg:gap-6 lg:space-y-0">
           <div className="min-w-0 space-y-4">
             <StateNotice state={state} />
-            {state === "empty" ? <TaskCard locked /> : <TaskCard />}
+            {state === "empty" ? <TaskCard locked day={cfg.day} /> : <TaskCard day={cfg.day} />}
             <SubmissionStatus day={cfg.day} github={cfg.github} linkedin={cfg.linkedin} onProofUpdate={handleProofUpdate} />
             <AchievementStrip />
           </div>
@@ -152,7 +152,7 @@ function Dashboard() {
           <div className="min-w-0 space-y-4">
             <StreakCard streak={cfg.streak} best={cfg.best} />
             <ChallengeProgress day={cfg.day} total={student.totalDays} />
-            <LeaderboardPreview />
+            <LeaderboardPreview streak={cfg.streak} />
             <GlassCard className="p-6">
               <p className="label-mono">XP earned</p>
               <div className="mt-3 flex items-end gap-2">
