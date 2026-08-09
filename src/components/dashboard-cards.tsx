@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -24,7 +25,7 @@ import { GlassCard } from "@/components/glass-card";
 import { ProgressBar, ProgressRing } from "@/components/progress-ring";
 import { achievements, leaderboard, student, todayTask } from "@/data/abtalks";
 import type { DashboardStateId } from "@/data/abtalks";
-import { useInView } from "@/hooks/use-motion";
+import { useInView, useReducedMotion } from "@/hooks/use-motion";
 import { Tilt3DCard } from "@/components/tilt-3d-card";
 
 /* ---------- Streak ---------- */
@@ -478,7 +479,9 @@ export function SubmissionStatus({
 
 export function AchievementStrip() {
   const [selectedAchievement, setSelectedAchievement] = useState<typeof achievements[0] | null>(null);
-  const achievementList = [...achievements, ...achievements];
+  const [isHovered, setIsHovered] = useState(false);
+  const reduced = useReducedMotion();
+  const achievementList = [...achievements, ...achievements, ...achievements];
 
   return (
     <section aria-label="Achievements" className="overflow-hidden">
@@ -492,26 +495,28 @@ export function AchievementStrip() {
         </p>
       </div>
 
-      {/* Automatic Moving Marquee Container */}
-      <div className="group relative mt-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
-        <ul
-          className="flex w-max gap-3.5 px-2 pb-2 hide-scrollbar"
-          style={{
-            animation: "marquee-x 32s linear infinite",
-            animationPlayState: "running",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.animationPlayState = "paused";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.animationPlayState = "running";
+      {/* Automatic Moving Marquee Container with Framer Motion 60fps */}
+      <div
+        className="group relative mt-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <motion.div
+          className="flex w-max gap-3.5 px-2 pb-2"
+          animate={reduced || isHovered ? {} : { x: ["0%", "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 25,
+            repeat: Infinity,
           }}
         >
           {achievementList.map((a, idx) => (
-            <li
+            <motion.div
               key={`${a.id}-${idx}`}
+              whileHover={{ scale: 1.05, y: -3 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => setSelectedAchievement(a)}
-              className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.4)] ${
+              className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-colors duration-300 ${
                 a.unlocked ? "border border-primary/30 hover:border-primary" : "opacity-65 hover:opacity-100 border border-border"
               }`}
             >
@@ -557,9 +562,9 @@ export function AchievementStrip() {
                   <div className="h-full rounded-full bg-gradient-to-r from-primary/80 to-emerald-400/80 transition-all duration-500" style={{ width: `${a.progress}%` }} />
                 </div>
               )}
-            </li>
+            </motion.div>
           ))}
-        </ul>
+        </motion.div>
       </div>
 
       {/* Interactive Achievement Detail Modal */}

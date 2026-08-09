@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Star, Heart, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Star, Heart } from "lucide-react";
 import { testimonials } from "@/data/abtalks";
 import { useReducedMotion } from "@/hooks/use-motion";
 
@@ -28,7 +29,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
     .toUpperCase();
 
   return (
-    <li className="card-surface lift group/card relative w-[320px] shrink-0 p-5 sm:w-[380px] rounded-3xl border border-white/10 bg-surface/80 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-primary/50 hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)]">
+    <div className="card-surface lift group/card relative w-[320px] shrink-0 p-5 sm:w-[380px] rounded-3xl border border-white/10 bg-surface/80 backdrop-blur-xl transition-colors duration-300 hover:border-primary/50 hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)]">
       {/* Card Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-3">
@@ -91,13 +92,14 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
           <span>{likes}</span>
         </button>
       </div>
-    </li>
+    </div>
   );
 }
 
 export function TestimonialsSection() {
   const reduced = useReducedMotion();
-  const row = [...testimonials, ...testimonials, ...testimonials];
+  const [isHovered, setIsHovered] = useState(false);
+  const row = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
   return (
     <section className="py-20 lg:py-28 overflow-hidden">
@@ -118,40 +120,40 @@ export function TestimonialsSection() {
           </h2>
 
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Hover any proof card to inspect. Automatically streaming real student updates across India.
+            Hover any proof card to inspect. Powered by Framer Motion 60fps streaming real student updates across India.
           </p>
         </div>
       </div>
 
-      {/* Automatic Moving Marquee Motion */}
+      {/* 60fps Framer Motion Automatic Marquee Motion */}
       <div
         className="group relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]"
         aria-label="Wall of Proof Live Stream"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <ul
-          className="flex w-max gap-5 px-4 hide-scrollbar sm:px-6"
-          style={
-            reduced
-              ? { overflowX: "auto" }
-              : {
-                  animation: "marquee-x 35s linear infinite",
-                  animationPlayState: "running",
-                }
-          }
-          onMouseEnter={(e) => {
-            e.currentTarget.style.animationPlayState = "paused";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.animationPlayState = "running";
+        <motion.div
+          className="flex w-max gap-5 px-4 sm:px-6"
+          animate={reduced || isHovered ? {} : { x: ["0%", "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 30,
+            repeat: Infinity,
           }}
         >
           {row.map((t, i) => (
-            <TestimonialCard key={`${t.name}-${i}`} t={t} index={i} />
+            <motion.div
+              key={`${t.name}-${i}`}
+              whileHover={{ scale: 1.03, y: -4 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <TestimonialCard t={t} index={i} />
+            </motion.div>
           ))}
-        </ul>
+        </motion.div>
       </div>
 
-      {/* Screenshot Bottom Tech Chips */}
+      {/* Tech Chips Footer */}
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3 px-4 text-xs font-bold text-foreground">
         <span className="rounded-full border border-white/15 bg-background/60 backdrop-blur-md px-4 py-2 shadow-sm">
           100% mobile-first
@@ -159,8 +161,8 @@ export function TestimonialsSection() {
         <span className="rounded-full border border-white/15 bg-background/60 backdrop-blur-md px-4 py-2 shadow-sm">
           Neomorphism • Glass • Liquid
         </span>
-        <span className="rounded-full border border-white/15 bg-background/60 backdrop-blur-md px-4 py-2 shadow-sm">
-          Framer Motion 60fps
+        <span className="rounded-full border border-emerald-400/40 bg-emerald-400/10 text-emerald-400 backdrop-blur-md px-4 py-2 shadow-sm flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> Framer Motion 60fps
         </span>
         <span className="rounded-full border border-white/15 bg-background/60 backdrop-blur-md px-4 py-2 shadow-sm">
           Parallax + 3D tilt
