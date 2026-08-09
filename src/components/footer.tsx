@@ -55,8 +55,8 @@ export function Footer() {
             <p className="label-mono">Platform</p>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
-                <Link to="/challenge" className="text-muted-foreground hover:text-foreground">
-                  Challenge
+                <Link to="/days" className="text-muted-foreground hover:text-foreground">
+                  Days
                 </Link>
               </li>
               <li>

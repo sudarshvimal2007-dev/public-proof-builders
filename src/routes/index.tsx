@@ -40,10 +40,10 @@ export const Route = createFileRoute("/")({
 
 const featureCards = [
   {
-    href: "/challenge",
+    href: "/days",
     icon: Target,
-    tag: "CHALLENGE",
-    title: "The 60-Day Challenge",
+    tag: "DAYS",
+    title: "The 60-Day Days",
     desc: "Why build daily? Daily task specs, streak rules, dual GitHub & LinkedIn proof verification.",
     badge: "60 Days",
   },
@@ -97,10 +97,10 @@ function Landing() {
               </h2>
             </div>
             <Link
-              to="/challenge"
+              to="/days"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
             >
-              View Full Challenge Rules <ArrowRight className="h-3.5 w-3.5" />
+              View Full Days Rules <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 

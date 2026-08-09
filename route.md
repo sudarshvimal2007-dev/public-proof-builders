@@ -12,9 +12,9 @@ This file documents the current route structure of the application and the main 
   - File: `src/routes/about.tsx`
   - Purpose: Mission, values, recruiter context, testimonials
 
-- `/challenge` — Challenge page
-  - File: `src/routes/challenge.tsx`
-  - Purpose: The 60-day challenge overview and rules
+- `/days` — Days page
+  - File: `src/routes/days.tsx`
+  - Purpose: The 60-day program overview and rules
 
 - `/dashboard` — Dashboard page
   - File: `src/routes/dashboard.tsx`
@@ -42,7 +42,7 @@ This file documents the current route structure of the application and the main 
 __root__
 ├── /
 ├── /about
-├── /challenge
+├── /days
 ├── /dashboard
 ├── /how-it-works
 ├── /leaderboard
