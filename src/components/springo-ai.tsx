@@ -55,6 +55,47 @@ SAMJHE BETAA....!!`,
 SAMJHE BETAA....!!`,
 };
 
+// Helper component to parse **bold** text and format Springo AI responses cleanly
+function FormattedText({ text }: { text: string }) {
+  const lines = text.split("\n");
+
+  return (
+    <div className="space-y-1 leading-relaxed">
+      {lines.map((line, idx) => {
+        if (!line.trim()) return <div key={idx} className="h-1" />;
+
+        // Parse **bold text** syntax into <strong> tags
+        const parts = line.split(/(\*\*.*?\*\*)/g);
+
+        const renderedLine = parts.map((part, pIdx) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return (
+              <strong key={pIdx} className="font-black text-foreground">
+                {part.slice(2, -2)}
+              </strong>
+            );
+          }
+          return part;
+        });
+
+        // Special signature badge for SAMJHE BETAA
+        if (line.includes("SAMJHE BETAA")) {
+          return (
+            <p
+              key={idx}
+              className="mt-2.5 inline-block rounded-xl border border-emerald-400/40 bg-emerald-400/15 px-3 py-1.5 text-xs font-black tracking-wider text-emerald-400 shadow-sm"
+            >
+              {renderedLine}
+            </p>
+          );
+        }
+
+        return <p key={idx}>{renderedLine}</p>;
+      })}
+    </div>
+  );
+}
+
 export function SpringoAI() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -264,7 +305,7 @@ export function SpringoAI() {
                         : "border border-white/15 bg-surface/30 backdrop-blur-xl text-foreground rounded-bl-none shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)] whitespace-pre-line"
                     }`}
                   >
-                    {msg.text}
+                    <FormattedText text={msg.text} />
                     <div
                       className={`mt-1.5 text-[9px] ${
                         msg.sender === "user"
