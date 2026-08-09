@@ -70,9 +70,23 @@ export function SpringoAI() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
+
+  // Click outside listener to close modal when active
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   const generateSpringoResponse = (query: string): string => {
     const q = query.toLowerCase();
@@ -127,12 +141,21 @@ export function SpringoAI() {
 
   return (
     <>
-      {/* Floating Trigger Button using provided Styled Wrapper theme */}
+      {/* Background Blur Overlay when AI is Active */}
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="animate-fade-in fixed inset-0 z-40 bg-black/45 backdrop-blur-md transition-opacity duration-300"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Floating Trigger Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
-          className="springo-btn shadow-[0_10px_30px_rgba(0,0,0,0.5)] active:scale-95"
+          className="springo-btn shadow-[0_10px_35px_rgba(0,0,0,0.6)] active:scale-95"
           aria-label="Ask Springo AI Assistant"
         >
           <svg viewBox="0 0 24 24" height={22} width={22} xmlns="http://www.w3.org/2000/svg">
@@ -148,51 +171,60 @@ export function SpringoAI() {
         </button>
       </div>
 
-      {/* Springo AI Modal Window */}
+      {/* Glassmorphism & Neomorphism Springo AI Modal Window */}
       {isOpen && (
-        <div className="fixed inset-x-4 bottom-24 z-50 mx-auto max-w-lg sm:right-6 sm:left-auto sm:w-[420px]">
-          <GlassCard className="flex h-[540px] flex-col overflow-hidden border border-primary/40 p-0 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-2xl">
+        <div
+          ref={modalRef}
+          className="animate-pop-in fixed inset-x-4 bottom-24 z-50 mx-auto max-w-lg sm:right-6 sm:left-auto sm:w-[430px]"
+        >
+          <div className="relative flex h-[550px] flex-col overflow-hidden rounded-3xl border border-white/20 dark:border-primary/40 bg-background/35 p-0 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-3xl">
+            {/* Top Specular Edge Highlight */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent"
+            />
+
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-border/80 bg-background/80 px-4 py-3">
+            <div className="flex items-center justify-between border-b border-white/10 bg-background/30 px-4 py-3.5 backdrop-blur-xl">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-pink-400 to-blue-500 p-0.5 text-white shadow-md">
+                <div className="flex h-9.5 w-9.5 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-pink-400 to-blue-500 p-0.5 text-white shadow-lg ring-2 ring-white/20">
                   <Bot className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-extrabold tracking-wide text-foreground">Springo AI</h3>
                   <p className="text-[10px] font-semibold text-emerald-400 flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Roadmap & ABTalks Assistant
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Roadmap & ABTalks Guide
                   </p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded-full p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+                className="rounded-full p-1.5 text-muted-foreground hover:bg-secondary/70 hover:text-foreground transition-colors"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             {/* Messages Body */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs leading-relaxed">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs leading-relaxed">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
                   className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl p-3 shadow-sm ${
+                    className={`max-w-[85%] rounded-2xl p-3.5 shadow-md ${
                       msg.sender === "user"
-                        ? "bg-primary text-primary-foreground font-semibold rounded-br-none"
-                        : "border border-border/80 bg-surface/90 text-foreground rounded-bl-none whitespace-pre-line"
+                        ? "liquid-glass-btn text-primary-foreground font-semibold rounded-br-none"
+                        : "border border-white/15 bg-surface/30 backdrop-blur-xl text-foreground rounded-bl-none shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)] whitespace-pre-line"
                     }`}
                   >
                     {msg.text}
                     <div
-                      className={`mt-1 text-[9px] ${
-                        msg.sender === "user" ? "text-primary-foreground/70" : "text-muted-foreground"
-                      } text-right`}
+                      className={`mt-1.5 text-[9px] ${
+                        msg.sender === "user" ? "text-primary-foreground/80" : "text-muted-foreground"
+                      } text-right font-medium`}
                     >
                       {msg.timestamp}
                     </div>
@@ -202,70 +234,70 @@ export function SpringoAI() {
 
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="rounded-2xl border border-border/80 bg-surface/90 p-3 text-muted-foreground flex items-center gap-2">
-                    <Sparkles className="h-3.5 w-3.5 animate-spin text-primary" /> Springo AI is thinking...
+                  <div className="rounded-2xl border border-white/15 bg-surface/30 backdrop-blur-xl p-3 text-muted-foreground flex items-center gap-2">
+                    <Sparkles className="h-3.5 w-3.5 animate-spin text-primary" /> Springo AI is crafting answer...
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Prompt Chips */}
-            <div className="border-t border-border/60 bg-background/50 px-3 py-2 flex items-center gap-1.5 overflow-x-auto text-[11px]">
+            {/* Neomorphic Quick Prompt Chips */}
+            <div className="border-t border-white/10 bg-background/20 px-3.5 py-2.5 flex items-center gap-2 overflow-x-auto text-[11px] backdrop-blur-md">
               <button
                 type="button"
                 onClick={() => handleSend("Frontend Developer Roadmap")}
-                className="shrink-0 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-foreground font-semibold hover:bg-primary/20 transition-colors"
+                className="shrink-0 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-foreground font-semibold hover:bg-emerald-400/20 transition-colors shadow-sm"
               >
                 🎨 Frontend
               </button>
               <button
                 type="button"
                 onClick={() => handleSend("Backend Roadmap")}
-                className="shrink-0 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-foreground font-semibold hover:bg-primary/20 transition-colors"
+                className="shrink-0 rounded-full border border-pink-400/30 bg-pink-400/10 px-3 py-1 text-foreground font-semibold hover:bg-pink-400/20 transition-colors shadow-sm"
               >
                 ⚙️ Backend
               </button>
               <button
                 type="button"
                 onClick={() => handleSend("AI & Machine Learning Roadmap")}
-                className="shrink-0 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-foreground font-semibold hover:bg-primary/20 transition-colors"
+                className="shrink-0 rounded-full border border-purple-400/30 bg-purple-400/10 px-3 py-1 text-foreground font-semibold hover:bg-purple-400/20 transition-colors shadow-sm"
               >
                 🧠 AI / ML
               </button>
               <button
                 type="button"
                 onClick={() => handleSend("DevOps Roadmap")}
-                className="shrink-0 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-foreground font-semibold hover:bg-primary/20 transition-colors"
+                className="shrink-0 rounded-full border border-blue-400/30 bg-blue-400/10 px-3 py-1 text-foreground font-semibold hover:bg-blue-400/20 transition-colors shadow-sm"
               >
                 🚀 DevOps
               </button>
             </div>
 
-            {/* Input Form */}
+            {/* Neomorphic Input Form */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
               }}
-              className="flex items-center gap-2 border-t border-border/80 bg-background/90 p-3"
+              className="flex items-center gap-2 border-t border-white/10 bg-background/40 p-3 backdrop-blur-xl"
             >
               <input
                 type="text"
-                placeholder="Ask Springo AI about roadmaps & 60-day challenge..."
+                placeholder="Ask Springo AI about roadmaps..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="flex-1 rounded-2xl border border-white/15 bg-background/50 px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400 shadow-inner"
               />
               <button
                 type="submit"
                 disabled={!input.trim()}
-                className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm hover:brightness-110 disabled:opacity-50 transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-2xl liquid-glass-btn text-primary-foreground shadow-md hover:brightness-110 disabled:opacity-40 transition-all"
               >
-                <Send className="h-3.5 w-3.5" />
+                <Send className="h-4 w-4" />
               </button>
             </form>
-          </GlassCard>
+          </div>
         </div>
       )}
     </>
