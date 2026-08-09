@@ -256,14 +256,14 @@ export const activity: number[] = [
 
 export const dashboardStates = [
   {
-    id: "active",
-    label: "Day 12",
-    hint: "Active streak",
-  },
-  {
     id: "first-day",
     label: "Day 1",
     hint: "First day",
+  },
+  {
+    id: "active",
+    label: "Day 12",
+    hint: "Active streak",
   },
   {
     id: "missed",

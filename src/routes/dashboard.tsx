@@ -47,6 +47,7 @@ const stateConfig: Record<
 function Dashboard() {
   const [state, setState] = useState<DashboardStateId>("first-day");
   const [userName, setUserName] = useState<string>(student.firstName);
+  const [userStreak, setUserStreak] = useState<number | null>(null);
 
   useEffect(() => {
     try {
@@ -56,18 +57,41 @@ function Dashboard() {
         if (parsed?.name) {
           setUserName(parsed.name.split(" ")[0]);
         }
-        if (parsed?.currentDay === 1 || parsed?.isFirstTime) {
+        // Force first-day state for first-time login users
+        if (!parsed?.currentDay || parsed?.currentDay === 1 || parsed?.isFirstTime) {
           setState("first-day");
         } else if (parsed?.currentDay === 12) {
           setState("active");
         }
+        if (typeof parsed?.streak === "number") {
+          setUserStreak(parsed.streak);
+        }
+      } else {
+        setState("first-day");
       }
     } catch {
       setState("first-day");
     }
   }, []);
 
-  const cfg = stateConfig[state];
+  const cfg = {
+    ...stateConfig[state],
+    ...(userStreak !== null ? { streak: userStreak } : {}),
+  };
+
+  const handleProofUpdate = ({ github, linkedin }: { github: boolean; linkedin: boolean }) => {
+    if (github && linkedin && cfg.day === 1) {
+      setUserStreak(1);
+      try {
+        const stored = localStorage.getItem("abtalks_user");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          parsed.streak = 1;
+          localStorage.setItem("abtalks_user", JSON.stringify(parsed));
+        }
+      } catch {}
+    }
+  };
 
   return (
     <div className="relative min-h-screen">
@@ -121,7 +145,7 @@ function Dashboard() {
           <div className="min-w-0 space-y-4">
             <StateNotice state={state} />
             {state === "empty" ? <TaskCard locked /> : <TaskCard />}
-            <SubmissionStatus github={cfg.github} linkedin={cfg.linkedin} />
+            <SubmissionStatus day={cfg.day} github={cfg.github} linkedin={cfg.linkedin} onProofUpdate={handleProofUpdate} />
             <AchievementStrip />
           </div>
 

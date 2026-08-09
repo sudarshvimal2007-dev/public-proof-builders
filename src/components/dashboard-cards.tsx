@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -12,6 +13,12 @@ import {
   TrendingUp,
   Trophy,
   Zap,
+  ExternalLink,
+  CheckCircle2,
+  Send,
+  AlertCircle,
+  Edit3,
+  Sparkles,
 } from "lucide-react";
 import { GlassCard } from "@/components/glass-card";
 import { ProgressBar, ProgressRing } from "@/components/progress-ring";
@@ -143,68 +150,321 @@ export function TaskCard({ locked = false }: { locked?: boolean }) {
 /* ---------- Submission status ---------- */
 
 export function SubmissionStatus({
-  github,
-  linkedin,
+  day = 1,
+  github = false,
+  linkedin = false,
+  onProofUpdate,
 }: {
-  github: boolean;
-  linkedin: boolean;
+  day?: number;
+  github?: boolean;
+  linkedin?: boolean;
+  onProofUpdate?: (proofs: { github: boolean; linkedin: boolean }) => void;
 }) {
-  const count = Number(github) + Number(linkedin);
-  const rows = [
-    { icon: Github, label: "GitHub", done: github, doneText: "Commit submitted", pendingText: "Commit not submitted" },
-    { icon: Linkedin, label: "LinkedIn", done: linkedin, doneText: "Post submitted", pendingText: "Post not submitted" },
-  ];
+  const [githubUrl, setGithubUrl] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [githubSubmitted, setGithubSubmitted] = useState(github);
+  const [linkedinSubmitted, setLinkedinSubmitted] = useState(linkedin);
+  const [isEditingGithub, setIsEditingGithub] = useState(false);
+  const [isEditingLinkedin, setIsEditingLinkedin] = useState(false);
+  const [githubError, setGithubError] = useState("");
+  const [linkedinError, setLinkedinError] = useState("");
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
+  // Load saved proof submissions from localStorage for current day
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(`abtalks_proof_day_${day}`);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.githubUrl) {
+          setGithubUrl(parsed.githubUrl);
+          setGithubSubmitted(true);
+        }
+        if (parsed.linkedinUrl) {
+          setLinkedinUrl(parsed.linkedinUrl);
+          setLinkedinSubmitted(true);
+        }
+      } else {
+        setGithubSubmitted(github);
+        setLinkedinSubmitted(linkedin);
+      }
+    } catch {
+      setGithubSubmitted(github);
+      setLinkedinSubmitted(linkedin);
+    }
+  }, [day, github, linkedin]);
+
+  const saveProofState = (gUrl: string, gSubmitted: boolean, lUrl: string, lSubmitted: boolean) => {
+    try {
+      localStorage.setItem(
+        `abtalks_proof_day_${day}`,
+        JSON.stringify({
+          day,
+          githubUrl: gUrl,
+          githubSubmitted: gSubmitted,
+          linkedinUrl: lUrl,
+          linkedinSubmitted: lSubmitted,
+          updatedAt: new Date().toISOString(),
+        })
+      );
+      if (onProofUpdate) {
+        onProofUpdate({ github: gSubmitted, linkedin: lSubmitted });
+      }
+    } catch {}
+  };
+
+  const submitGithub = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = githubUrl.trim();
+    if (!trimmed) {
+      setGithubError("Please paste a valid GitHub commit link.");
+      return;
+    }
+    if (!trimmed.includes("github.com")) {
+      setGithubError("URL must be a valid GitHub link (e.g. https://github.com/user/repo/commit/...)");
+      return;
+    }
+    setGithubError("");
+    setGithubSubmitted(true);
+    setIsEditingGithub(false);
+    saveProofState(trimmed, true, linkedinUrl, linkedinSubmitted);
+
+    if (linkedinSubmitted || linkedin) {
+      setShowSuccessToast(true);
+    }
+  };
+
+  const submitLinkedin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = linkedinUrl.trim();
+    if (!trimmed) {
+      setLinkedinError("Please paste a valid LinkedIn post link.");
+      return;
+    }
+    if (!trimmed.includes("linkedin.com")) {
+      setLinkedinError("URL must be a valid LinkedIn link (e.g. https://linkedin.com/posts/...)");
+      return;
+    }
+    setLinkedinError("");
+    setLinkedinSubmitted(true);
+    setIsEditingLinkedin(false);
+    saveProofState(githubUrl, githubSubmitted, trimmed, true);
+
+    if (githubSubmitted || github) {
+      setShowSuccessToast(true);
+    }
+  };
+
+  const count = (githubSubmitted ? 1 : 0) + (linkedinSubmitted ? 1 : 0);
 
   return (
     <GlassCard className="p-6">
       <div className="flex items-center justify-between gap-3">
-        <p className="label-mono">Today's proof</p>
+        <div>
+          <p className="label-mono">Today's Proof Submission</p>
+          <h3 className="mt-1 text-base font-bold">Submit Your Evidence for Day {day}</h3>
+        </div>
         <span
-          className={`num-display rounded-full px-2.5 py-1 text-[12px] font-bold ${
+          className={`num-display shrink-0 rounded-full px-3 py-1 text-xs font-extrabold ${
             count === 2
-              ? "bg-primary/15 text-primary"
-              : "bg-warning/15 text-warning"
+              ? "bg-primary/20 text-primary border border-primary/30"
+              : count === 1
+              ? "bg-warning/20 text-warning border border-warning/30"
+              : "bg-secondary text-muted-foreground border border-border"
           }`}
         >
-          {count} / 2
+          {count} / 2 Verified
         </span>
       </div>
 
-      <ul className="mt-4 space-y-2.5">
-        {rows.map((row) => (
-          <li
-            key={row.label}
-            className={`flex items-center gap-3 rounded-2xl border p-4 ${
-              row.done
-                ? "border-primary/25 bg-primary/8"
-                : "border-warning/30 bg-warning/8"
-            }`}
-          >
-            <row.icon className="h-5 w-5 shrink-0 text-foreground" aria-hidden="true" />
-            <div className="min-w-0">
-              <p className="text-sm font-semibold">{row.label}</p>
-              <p
-                className={`truncate text-[13px] ${
-                  row.done ? "text-primary" : "text-warning"
-                }`}
-              >
-                {row.done ? row.doneText : row.pendingText}
-              </p>
+      {showSuccessToast && (
+        <div className="animate-pop-in mt-4 flex items-center justify-between gap-3 rounded-2xl border border-primary/40 bg-primary/15 p-4 text-primary">
+          <div className="flex items-center gap-3">
+            <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <p className="text-sm font-bold text-foreground">Day {day} Proof Completed!</p>
+              <p className="text-xs text-muted-foreground">Your streak has been updated and recorded.</p>
             </div>
-            {row.done ? (
-              <CircleCheck className="ml-auto h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-            ) : (
-              <Circle className="ml-auto h-5 w-5 shrink-0 text-warning" aria-hidden="true" />
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {count < 2 && (
-        <p className="mt-4 text-[13px] text-muted-foreground">
-          Day 12 counts once both proofs are in. One more to go.
-        </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowSuccessToast(false)}
+            className="text-xs font-semibold text-primary hover:underline"
+          >
+            Dismiss
+          </button>
+        </div>
       )}
+
+      <div className="mt-5 space-y-4">
+        {/* GitHub Commit Submission Card */}
+        <div
+          className={`rounded-2xl border p-4 transition-all ${
+            githubSubmitted
+              ? "border-primary/40 bg-primary/8 shadow-[0_0_20px_-8px_var(--color-primary)]"
+              : "border-border bg-background/50"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-secondary">
+                <Github className="h-4.5 w-4.5 text-foreground" />
+              </span>
+              <div>
+                <p className="text-sm font-bold">1. GitHub Commit URL</p>
+                <p className="text-xs text-muted-foreground">
+                  {githubSubmitted ? "Commit link verified" : "Paste link to today's GitHub commit"}
+                </p>
+              </div>
+            </div>
+            {githubSubmitted && !isEditingGithub ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[11px] font-bold text-primary">
+                <CircleCheck className="h-3.5 w-3.5" /> Verified
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[11px] font-semibold text-warning">
+                <Circle className="h-3.5 w-3.5" /> Pending
+              </span>
+            )}
+          </div>
+
+          {githubSubmitted && !isEditingGithub ? (
+            <div className="mt-3.5 flex items-center justify-between gap-2 rounded-xl border border-primary/20 bg-background/70 px-3.5 py-2.5 text-xs">
+              <a
+                href={githubUrl || "https://github.com"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 font-mono text-primary hover:underline truncate min-w-0"
+              >
+                <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                <span className="truncate">{githubUrl || "Commit Submitted"}</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsEditingGithub(true)}
+                className="flex items-center gap-1 shrink-0 text-muted-foreground hover:text-foreground font-semibold"
+              >
+                <Edit3 className="h-3.5 w-3.5" /> Edit
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={submitGithub} className="mt-3.5 space-y-2">
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  required
+                  placeholder="https://github.com/username/repo/commit/a1b2c3d..."
+                  value={githubUrl}
+                  onChange={(e) => {
+                    setGithubUrl(e.target.value);
+                    setGithubError("");
+                  }}
+                  className="w-full rounded-xl border border-border bg-background/80 px-3.5 py-2 text-xs font-mono text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+                <button
+                  type="submit"
+                  className="flex shrink-0 items-center gap-1.5 rounded-xl grad-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-transform active:scale-95"
+                >
+                  <Send className="h-3.5 w-3.5" />
+                  Submit
+                </button>
+              </div>
+              {githubError && (
+                <p className="flex items-center gap-1 text-[11px] font-medium text-destructive">
+                  <AlertCircle className="h-3 w-3" /> {githubError}
+                </p>
+              )}
+            </form>
+          )}
+        </div>
+
+        {/* LinkedIn Post Submission Card */}
+        <div
+          className={`rounded-2xl border p-4 transition-all ${
+            linkedinSubmitted
+              ? "border-primary/40 bg-primary/8 shadow-[0_0_20px_-8px_var(--color-primary)]"
+              : "border-border bg-background/50"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-secondary">
+                <Linkedin className="h-4.5 w-4.5 text-foreground" />
+              </span>
+              <div>
+                <p className="text-sm font-bold">2. LinkedIn Post URL</p>
+                <p className="text-xs text-muted-foreground">
+                  {linkedinSubmitted ? "Post link verified" : "Paste link to today's LinkedIn post"}
+                </p>
+              </div>
+            </div>
+            {linkedinSubmitted && !isEditingLinkedin ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[11px] font-bold text-primary">
+                <CircleCheck className="h-3.5 w-3.5" /> Verified
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[11px] font-semibold text-warning">
+                <Circle className="h-3.5 w-3.5" /> Pending
+              </span>
+            )}
+          </div>
+
+          {linkedinSubmitted && !isEditingLinkedin ? (
+            <div className="mt-3.5 flex items-center justify-between gap-2 rounded-xl border border-primary/20 bg-background/70 px-3.5 py-2.5 text-xs">
+              <a
+                href={linkedinUrl || "https://linkedin.com"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 font-mono text-primary hover:underline truncate min-w-0"
+              >
+                <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                <span className="truncate">{linkedinUrl || "Post Submitted"}</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsEditingLinkedin(true)}
+                className="flex items-center gap-1 shrink-0 text-muted-foreground hover:text-foreground font-semibold"
+              >
+                <Edit3 className="h-3.5 w-3.5" /> Edit
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={submitLinkedin} className="mt-3.5 space-y-2">
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  required
+                  placeholder="https://www.linkedin.com/posts/activity-71234567..."
+                  value={linkedinUrl}
+                  onChange={(e) => {
+                    setLinkedinUrl(e.target.value);
+                    setLinkedinError("");
+                  }}
+                  className="w-full rounded-xl border border-border bg-background/80 px-3.5 py-2 text-xs font-mono text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+                <button
+                  type="submit"
+                  className="flex shrink-0 items-center gap-1.5 rounded-xl grad-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-transform active:scale-95"
+                >
+                  <Send className="h-3.5 w-3.5" />
+                  Submit
+                </button>
+              </div>
+              {linkedinError && (
+                <p className="flex items-center gap-1 text-[11px] font-medium text-destructive">
+                  <AlertCircle className="h-3 w-3" /> {linkedinError}
+                </p>
+              )}
+            </form>
+          )}
+        </div>
+      </div>
+
+      <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed">
+        {count === 2
+          ? "✅ Both GitHub and LinkedIn proofs submitted! Your Day " + day + " progress is fully verified."
+          : "Submit both proof links above to lock in your Day " + day + " streak."}
+      </p>
     </GlassCard>
   );
 }
