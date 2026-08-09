@@ -7,35 +7,46 @@ import { useIsDesktop, useReducedMotion, useScrollProgress } from "@/hooks/use-m
 
 function RotatingPhrase() {
   const [index, setIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
     if (reduced) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % heroPhrases.length), 2600);
+    const id = setInterval(() => {
+      setIndex((current) => {
+        setPrevIndex(current);
+        return (current + 1) % heroPhrases.length;
+      });
+    }, 2800);
     return () => clearInterval(id);
   }, [reduced]);
 
   return (
-    <span className="relative inline-grid h-[1.2em] overflow-hidden align-bottom">
-      <span className="invisible col-start-1 row-start-1 whitespace-nowrap">
+    <span className="relative inline-grid h-[1.25em] overflow-hidden align-bottom">
+      <span className="invisible col-start-1 row-start-1 whitespace-nowrap px-1">
         {heroPhrases.reduce((a, b) => (b.length > a.length ? b : a))}
       </span>
-      {heroPhrases.map((phrase, i) => (
-        <span
-          key={phrase}
-          aria-hidden={i !== index}
-          className="col-start-1 row-start-1 whitespace-nowrap text-primary"
-          style={{
-            animation:
-              i === index
-                ? "slide-up-blur-in 0.7s cubic-bezier(0.16,1,0.3,1) both"
-                : "slide-up-blur-out 0.6s cubic-bezier(0.16,1,0.3,1) both",
-            visibility: i === index || i === (index - 1 + heroPhrases.length) % heroPhrases.length ? "visible" : "hidden",
-          }}
-        >
-          {phrase}
-        </span>
-      ))}
+      {heroPhrases.map((phrase, i) => {
+        const isActive = i === index;
+        const isPrev = i === prevIndex;
+        if (!isActive && !isPrev) return null;
+
+        return (
+          <span
+            key={phrase}
+            aria-hidden={!isActive}
+            className="col-start-1 row-start-1 whitespace-nowrap text-primary px-1 font-bold"
+            style={{
+              animation: isActive
+                ? "slide-up-blur-in 0.6s cubic-bezier(0.16,1,0.3,1) both"
+                : "slide-up-blur-out 0.5s cubic-bezier(0.16,1,0.3,1) both",
+              zIndex: isActive ? 2 : 1,
+            }}
+          >
+            {phrase}
+          </span>
+        );
+      })}
     </span>
   );
 }
