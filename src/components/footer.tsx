@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Linkedin, Terminal } from "lucide-react";
+import { Github, Linkedin, Instagram, Terminal } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Footer() {
@@ -21,17 +21,30 @@ export function Footer() {
             <div className="mt-6 flex items-center gap-3">
               <a
                 href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="ABTalks on GitHub"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                className="grid h-10 w-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary hover:bg-primary/10"
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/abtalks-on-ai/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="ABTalks on LinkedIn"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                className="grid h-10 w-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary hover:bg-primary/10"
               >
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.instagram.com/abtalksonai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="ABTalks on Instagram"
+                className="grid h-10 w-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary hover:bg-primary/10"
+              >
+                <Instagram className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
           </div>
