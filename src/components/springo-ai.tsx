@@ -150,8 +150,8 @@ export function SpringoAI() {
         />
       )}
 
-      {/* Floating Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      {/* Floating Trigger Button shifted higher and further left for ample margins */}
+      <div className="fixed bottom-12 right-10 sm:bottom-14 sm:right-12 z-50">
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
@@ -175,7 +175,7 @@ export function SpringoAI() {
       {isOpen && (
         <div
           ref={modalRef}
-          className="animate-pop-in fixed inset-x-4 bottom-24 z-50 mx-auto max-w-lg sm:right-6 sm:left-auto sm:w-[430px]"
+          className="animate-pop-in fixed inset-x-4 bottom-32 sm:bottom-32 sm:right-12 sm:left-auto sm:w-[430px] z-50 mx-auto max-w-lg"
         >
           <div className="relative flex h-[550px] flex-col overflow-hidden rounded-3xl border border-white/20 dark:border-primary/40 bg-background/35 p-0 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-3xl">
             {/* Top Specular Edge Highlight */}
