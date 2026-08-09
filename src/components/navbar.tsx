@@ -15,11 +15,11 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
+  { label: "Dashboard", to: "/dashboard" },
   { label: "Challenge", to: "/challenge" },
   { label: "How It Works", to: "/how-it-works" },
   { label: "Leaderboard", to: "/leaderboard" },
   { label: "About", to: "/about" },
-  { label: "Dashboard", to: "/dashboard" },
 ];
 
 export function Navbar() {
