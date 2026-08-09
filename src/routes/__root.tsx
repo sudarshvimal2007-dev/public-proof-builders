@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -14,7 +13,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeProvider } from "../components/theme-provider";
 import { RetroTV404 } from "../components/retro-tv-404";
-import { TerminalLoader } from "../components/terminal-loader";
 import { useNetworkStatus } from "../hooks/use-network-status";
 
 function NotFoundComponent() {
@@ -105,7 +103,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const isOnline = useNetworkStatus();
-  const isLoading = useRouterState({ select: (s) => s.isLoading });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -119,11 +116,7 @@ function RootComponent() {
             onRetry={() => window.location.reload()}
           />
         ) : (
-          <>
-            {/* Terminal loader during route transitions */}
-            {isLoading && <TerminalLoader fullScreen message="Loading page..." />}
-            <Outlet />
-          </>
+          <Outlet />
         )}
       </ThemeProvider>
     </QueryClientProvider>

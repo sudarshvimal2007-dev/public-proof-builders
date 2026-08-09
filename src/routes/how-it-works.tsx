@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
 import { Footer } from "@/components/footer";
 import { JourneySection, CTASection } from "@/components/landing-sections";
 import { GlassCard } from "@/components/glass-card";
+import { SkeletonPage } from "@/components/skeleton";
 import { Terminal, ShieldCheck, ArrowRight, Sparkles, CheckCircle2, Share2, Code2 } from "lucide-react";
 
 const title = "How It Works — ABTalks";
@@ -38,18 +40,35 @@ const workflowSteps = [
   {
     number: "03",
     icon: Share2,
-    title: "Publish LinkedIn Proof",
-    desc: "Share a concise post explaining what you built, key learnings, screenshot/demo video, and tag #ABTalks60Days.",
+    title: "Public LinkedIn Proof",
+    desc: "Share a concise technical summary on LinkedIn tagging #ABTalks #BuildInPublic. Explain what you built, trade-offs, and learnings.",
   },
   {
     number: "04",
     icon: ShieldCheck,
-    title: "Verified Streak & Ranking",
-    desc: "Our automated proof scanner validates your PR & post link, updates your streak, and elevates your ranking on the public leaderboard.",
+    title: "Verified Streak Counter",
+    desc: "Paste both proof URLs on your ABTalks dashboard. Your daily streak increments and updates your standing on the global leaderboard.",
   },
 ];
 
-function HowItWorksPage() {
+export function HowItWorksPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen">
+        <AmbientBackdrop />
+        <Navbar />
+        <SkeletonPage />
+        <Footer />
+      </div>
+    );
+  }
   return (
     <div className="relative min-h-screen">
       <AmbientBackdrop />

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
@@ -5,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { RecruiterSection, CTASection } from "@/components/landing-sections";
 import { TestimonialsSection } from "@/components/testimonials";
 import { GlassCard } from "@/components/glass-card";
+import { SkeletonPage } from "@/components/skeleton";
 import { Users, ShieldCheck, HeartHandshake, Briefcase, Sparkles, ArrowRight } from "lucide-react";
 
 const title = "About — ABTalks Public Proof Builders";
@@ -47,6 +49,24 @@ const values = [
 ];
 
 function AboutPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen">
+        <AmbientBackdrop />
+        <Navbar />
+        <SkeletonPage />
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen">
       <AmbientBackdrop />

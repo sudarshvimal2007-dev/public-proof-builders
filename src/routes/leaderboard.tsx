@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
 import { Footer } from "@/components/footer";
 import { LeaderboardSection, StatsSection, CTASection } from "@/components/landing-sections";
 import { GlassCard } from "@/components/glass-card";
+import { SkeletonPage } from "@/components/skeleton";
 import { Trophy, Flame, Award, ArrowUpRight, Search, Filter } from "lucide-react";
 import { leaderboard } from "@/data/abtalks";
 
@@ -23,7 +25,24 @@ export const Route = createFileRoute("/leaderboard")({
   component: LeaderboardPage,
 });
 
-function LeaderboardPage() {
+export function LeaderboardPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen">
+        <AmbientBackdrop />
+        <Navbar />
+        <SkeletonPage />
+        <Footer />
+      </div>
+    );
+  }
   const top3 = leaderboard.slice(0, 3);
 
   return (
