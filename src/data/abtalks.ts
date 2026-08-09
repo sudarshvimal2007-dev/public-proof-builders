@@ -188,44 +188,59 @@ export const leaderboard = [
 
 export const testimonials = [
   {
-    name: "Sneha R.",
-    role: "3rd year CSE, Pune",
+    name: "Ananya M.",
+    college: "KIIT",
+    role: "3rd year CSE",
     rating: 5.0,
-    likes: 42,
+    likes: 48,
+    proofBadge: "LinkedIn ✓",
+    proofType: "GitHub + LinkedIn",
     quote:
-      "I had four unfinished courses and nothing to show. After 30 days on ABTalks I had 30 commits and people from my college actually messaging me about my posts.",
+      "The LinkedIn posts felt cringe at first. Now 3 interviews lined up.",
   },
   {
-    name: "Rohit K.",
-    role: "Final year IT, Hyderabad",
-    rating: 4.9,
-    likes: 38,
-    quote:
-      "My interviewer opened my LinkedIn instead of my resume and asked about Day 22. That conversation got me the internship.",
-  },
-  {
-    name: "Meher S.",
-    role: "2nd year ECE, Chennai",
-    rating: 5.0,
-    likes: 56,
-    quote:
-      "The streak is the only reason I still code on exam weeks. Even 40 minutes counts, and the day gets recorded.",
-  },
-  {
-    name: "Arjun D.",
-    role: "3rd year CSE, Indore",
+    name: "Dev J.",
+    college: "NIT Trichy",
+    role: "Final year IT",
     rating: 4.8,
-    likes: 29,
+    likes: 39,
+    proofBadge: "LinkedIn ✓",
+    proofType: "GitHub + LinkedIn",
     quote:
-      "Small daily tasks removed the pressure of picking a big project. I just built what the day asked for and it added up.",
+      "Missed day 9, used freeze. The grace made me not quit.",
   },
   {
-    name: "Nikita B.",
-    role: "Final year CSE, Jaipur",
-    rating: 4.6,
-    likes: 31,
+    name: "Priya S.",
+    college: "SRM",
+    role: "2nd year CSE",
+    rating: 5.0,
+    likes: 54,
+    proofBadge: "LinkedIn ✓",
+    proofType: "GitHub + LinkedIn",
     quote:
-      "Writing a post every day made me better at explaining my work. That helped in interviews more than DSA drilling did.",
+      "Day 18 and recruiters started viewing my profile daily. Streak = credibility.",
+  },
+  {
+    name: "Rohan K.",
+    college: "BITS",
+    role: "3rd year ECE",
+    rating: 4.9,
+    likes: 42,
+    proofBadge: "LinkedIn ✓",
+    proofType: "GitHub + LinkedIn",
+    quote:
+      "Used to tutorial hell. This forced me to ship. 42 commits in 60 days.",
+  },
+  {
+    name: "Sneha R.",
+    college: "IIT Kanpur",
+    role: "3rd year CSE",
+    rating: 5.0,
+    likes: 61,
+    proofBadge: "LinkedIn ✓",
+    proofType: "GitHub + LinkedIn",
+    quote:
+      "I had four unfinished courses and nothing to show. After 30 days on ABTalks I had 30 commits.",
   },
 ];
 

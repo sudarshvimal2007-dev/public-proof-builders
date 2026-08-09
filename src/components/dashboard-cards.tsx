@@ -478,9 +478,10 @@ export function SubmissionStatus({
 
 export function AchievementStrip() {
   const [selectedAchievement, setSelectedAchievement] = useState<typeof achievements[0] | null>(null);
+  const achievementList = [...achievements, ...achievements];
 
   return (
-    <section aria-label="Achievements">
+    <section aria-label="Achievements" className="overflow-hidden">
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <p className="label-mono">Achievements</p>
@@ -491,60 +492,75 @@ export function AchievementStrip() {
         </p>
       </div>
 
-      <ul className="hide-scrollbar mt-3 flex gap-3 overflow-x-auto pb-2">
-        {achievements.map((a) => (
-          <li
-            key={a.id}
-            onClick={() => setSelectedAchievement(a)}
-            className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.4)] ${
-              a.unlocked ? "border border-primary/30 hover:border-primary" : "opacity-65 hover:opacity-100 border border-border"
-            }`}
-          >
-            {/* Top Badge shine highlight on unlocked */}
-            {a.unlocked && (
-              <span className="absolute top-2 right-2 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-            )}
-
-            <div className="flex items-center justify-between">
-              <span
-                className={`grid h-11 w-11 place-items-center rounded-2xl text-xl transition-transform duration-300 group-hover/achieve:scale-110 group-hover/achieve:rotate-6 ${
-                  a.unlocked
-                    ? "border border-amber-400/40 bg-gradient-to-br from-amber-400/20 to-amber-500/10 shadow-[0_0_15px_rgba(251,191,36,0.25)]"
-                    : "border border-border bg-secondary grayscale"
-                }`}
-              >
-                {a.emoji}
-              </span>
-
-              {a.unlocked ? (
-                <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-bold text-emerald-400 border border-emerald-400/30">
-                  Unlocked
-                </span>
-              ) : (
-                <span className="rounded-full bg-secondary px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">
-                  Locked
+      {/* Automatic Moving Marquee Container */}
+      <div className="group relative mt-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+        <ul
+          className="flex w-max gap-3.5 px-2 pb-2 hide-scrollbar"
+          style={{
+            animation: "marquee-x 32s linear infinite",
+            animationPlayState: "running",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.animationPlayState = "paused";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.animationPlayState = "running";
+          }}
+        >
+          {achievementList.map((a, idx) => (
+            <li
+              key={`${a.id}-${idx}`}
+              onClick={() => setSelectedAchievement(a)}
+              className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.4)] ${
+                a.unlocked ? "border border-primary/30 hover:border-primary" : "opacity-65 hover:opacity-100 border border-border"
+              }`}
+            >
+              {/* Top Badge shine highlight on unlocked */}
+              {a.unlocked && (
+                <span className="absolute top-2 right-2 flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                 </span>
               )}
-            </div>
 
-            <p className="mt-3 text-sm leading-snug font-bold text-foreground group-hover/achieve:text-primary transition-colors">
-              {a.title}
-            </p>
-            <p className="label-mono mt-1 text-[9px] leading-relaxed normal-case text-muted-foreground">
-              {a.requirement}
-            </p>
+              <div className="flex items-center justify-between">
+                <span
+                  className={`grid h-11 w-11 place-items-center rounded-2xl text-xl transition-transform duration-300 group-hover/achieve:scale-110 group-hover/achieve:rotate-6 ${
+                    a.unlocked
+                      ? "border border-amber-400/40 bg-gradient-to-br from-amber-400/20 to-amber-500/10 shadow-[0_0_15px_rgba(251,191,36,0.25)]"
+                      : "border border-border bg-secondary grayscale"
+                  }`}
+                >
+                  {a.emoji}
+                </span>
 
-            {!a.unlocked && typeof a.progress === "number" && (
-              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-foreground/10">
-                <div className="h-full rounded-full bg-gradient-to-r from-primary/80 to-emerald-400/80 transition-all duration-500" style={{ width: `${a.progress}%` }} />
+                {a.unlocked ? (
+                  <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-bold text-emerald-400 border border-emerald-400/30">
+                    Unlocked
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-secondary px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">
+                    Locked
+                  </span>
+                )}
               </div>
-            )}
-          </li>
-        ))}
-      </ul>
+
+              <p className="mt-3 text-sm leading-snug font-bold text-foreground group-hover/achieve:text-primary transition-colors">
+                {a.title}
+              </p>
+              <p className="label-mono mt-1 text-[9px] leading-relaxed normal-case text-muted-foreground">
+                {a.requirement}
+              </p>
+
+              {!a.unlocked && typeof a.progress === "number" && (
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-foreground/10">
+                  <div className="h-full rounded-full bg-gradient-to-r from-primary/80 to-emerald-400/80 transition-all duration-500" style={{ width: `${a.progress}%` }} />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Interactive Achievement Detail Modal */}
       {selectedAchievement && (
