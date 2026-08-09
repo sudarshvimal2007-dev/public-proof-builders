@@ -292,7 +292,7 @@ export function Navbar() {
               /* First-Time Log In Button */
               <Link
                 to="/login"
-                className="items-center gap-1.5 rounded-full grad-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-[0_4px_16px_-4px_var(--color-primary)] transition-all hover:brightness-110 active:scale-[0.98] inline-flex"
+                className="items-center gap-1.5 liquid-glass-btn px-5 py-2 text-sm font-bold shadow-lg transition-all inline-flex"
               >
                 Log In
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />

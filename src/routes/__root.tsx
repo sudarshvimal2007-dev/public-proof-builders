@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeProvider } from "../components/theme-provider";
 import { RetroTV404 } from "../components/retro-tv-404";
 import { useNetworkStatus } from "../hooks/use-network-status";
+import { TopProgressBar } from "../components/top-progress-bar";
 
 function NotFoundComponent() {
   return (
@@ -107,6 +108,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+        <TopProgressBar />
         {/* Network offline screen fallback */}
         {!isOnline ? (
           <RetroTV404

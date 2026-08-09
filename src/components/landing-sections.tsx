@@ -570,7 +570,7 @@ export function MagneticButton({
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "";
       }}
-      className="group inline-flex min-h-13 items-center gap-2 rounded-full grad-primary px-7 text-sm font-bold tracking-wide text-primary-foreground shadow-[0_18px_45px_-18px_var(--color-primary)] transition-[transform,box-shadow] duration-300 hover:shadow-[0_22px_60px_-16px_var(--color-primary)] active:scale-[0.98]"
+      className="group inline-flex min-h-13 items-center gap-2 liquid-glass-btn px-7 text-sm font-bold tracking-wide shadow-xl transition-[transform,box-shadow] duration-300 active:scale-[0.98]"
     >
       {children}
       <ArrowRight

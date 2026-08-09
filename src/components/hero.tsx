@@ -51,6 +51,8 @@ function RotatingPhrase() {
   );
 }
 
+import { Tilt3DCard } from "./tilt-3d-card";
+
 export function Hero() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
   const isDesktop = useIsDesktop();
@@ -105,7 +107,9 @@ export function Hero() {
         </div>
 
         <div className="relative lg:pl-4">
-          <WorkspaceVisual progress={isDesktop ? progress : 0} />
+          <Tilt3DCard maxTilt={10}>
+            <WorkspaceVisual progress={isDesktop ? progress : 0} />
+          </Tilt3DCard>
         </div>
       </div>
 

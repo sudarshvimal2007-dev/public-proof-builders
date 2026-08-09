@@ -25,34 +25,39 @@ import { ProgressBar, ProgressRing } from "@/components/progress-ring";
 import { achievements, leaderboard, student, todayTask } from "@/data/abtalks";
 import type { DashboardStateId } from "@/data/abtalks";
 import { useInView } from "@/hooks/use-motion";
+import { Tilt3DCard } from "@/components/tilt-3d-card";
 
 /* ---------- Streak ---------- */
 
 export function StreakCard({ streak, best }: { streak: number; best: number }) {
   const isZero = streak === 0;
   return (
-    <GlassCard className="p-6">
-      <div className="flex items-start justify-between">
-        <p className="label-mono">Current streak</p>
-        <Flame
-          className={`h-5 w-5 ${isZero ? "text-muted-foreground" : "animate-flame text-flame"}`}
-          aria-hidden="true"
-        />
-      </div>
-      <div className="relative mt-4 flex items-end gap-3">
-        {!isZero && (
-          <span
+    <Tilt3DCard>
+      <GlassCard className="p-6">
+        <div className="flex items-start justify-between">
+          <p className="label-mono">Current streak</p>
+          <Flame
+            className={`h-5 w-5 ${isZero ? "text-muted-foreground" : "animate-flame text-flame"}`}
             aria-hidden="true"
-            className="pointer-events-none absolute -top-6 left-2 h-24 w-24 rounded-full bg-flame/20 blur-2xl"
           />
-        )}
-        <span className="num-display text-6xl leading-none font-bold">{streak}</span>
-        <span className="label-mono pb-1.5">day{streak === 1 ? "" : "s"}</span>
-      </div>
-      <p className="mt-4 text-sm text-muted-foreground">
-        {isZero ? "Start your first day today." : `Best: ${best} days`}
-      </p>
-    </GlassCard>
+        </div>
+        <div className="relative mt-4 flex items-end gap-3">
+          {!isZero && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-6 left-2 h-24 w-24 rounded-full bg-flame/20 blur-2xl"
+            />
+          )}
+          <span className="num-display text-6xl leading-none font-bold">{streak}</span>
+          <span className="label-mono pb-1.5">day{streak === 1 ? "" : "s"}</span>
+        </div>
+        <div className="mt-4 flex items-center gap-4 text-xs font-semibold text-muted-foreground border-t border-border/60 pt-3">
+          <span>Personal Best: <strong className="text-foreground">{best} days</strong></span>
+          <span className="h-3 w-px bg-border" />
+          <span>Grace freezes: <strong className="text-foreground">1 remaining</strong></span>
+        </div>
+      </GlassCard>
+    </Tilt3DCard>
   );
 }
 
@@ -363,7 +368,7 @@ export function SubmissionStatus({
                 />
                 <button
                   type="submit"
-                  className="flex shrink-0 items-center gap-1.5 rounded-xl grad-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-transform active:scale-95"
+                  className="flex shrink-0 items-center gap-1.5 liquid-glass-btn px-4.5 py-2 text-xs font-bold shadow-md transition-all active:scale-95"
                 >
                   <Send className="h-3.5 w-3.5" />
                   Submit
@@ -444,7 +449,7 @@ export function SubmissionStatus({
                 />
                 <button
                   type="submit"
-                  className="flex shrink-0 items-center gap-1.5 rounded-xl grad-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-transform active:scale-95"
+                  className="flex shrink-0 items-center gap-1.5 liquid-glass-btn px-4.5 py-2 text-xs font-bold shadow-md transition-all active:scale-95"
                 >
                   <Send className="h-3.5 w-3.5" />
                   Submit
