@@ -10,7 +10,8 @@ import { Trophy, Flame, Award, ArrowUpRight, Search, Filter } from "lucide-react
 import { leaderboard } from "@/data/abtalks";
 
 const title = "Public Leaderboard — ABTalks 60-Day Challenge";
-const description = "Live rankings of Indian college builders participating in the ABTalks 60-Day Challenge. Filter by streak, college, and domain.";
+const description =
+  "Live rankings of Indian college builders participating in the ABTalks 60-Day Challenge. Filter by streak, college, and domain.";
 
 export const Route = createFileRoute("/leaderboard")({
   head: () => ({
@@ -61,7 +62,8 @@ export function LeaderboardPage() {
             Public Hall of <span className="text-gradient">Consistency.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Rankings powered strictly by verified GitHub commits and public build proof. No secret algorithms, no manual boosts.
+            Rankings powered strictly by verified GitHub commits and public build proof. No secret
+            algorithms, no manual boosts.
           </p>
         </section>
 

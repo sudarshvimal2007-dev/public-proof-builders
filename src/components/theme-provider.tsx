@@ -45,7 +45,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     applyTheme(newTheme);
     try {
       window.localStorage.setItem(STORAGE_KEY, newTheme);
-    } catch {}
+    } catch (err) {
+      console.error("Failed to save theme setting to localStorage:", err);
+    }
   }, []);
 
   const toggle = useCallback(() => {
@@ -54,15 +56,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       applyTheme(next);
       try {
         window.localStorage.setItem(STORAGE_KEY, next);
-      } catch {}
+      } catch (err) {
+        console.error("Failed to persist toggled theme setting:", err);
+      }
       return next;
     });
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggle }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme, toggle }}>{children}</ThemeContext.Provider>
   );
 }
 

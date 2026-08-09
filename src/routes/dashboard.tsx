@@ -39,7 +39,14 @@ const stateConfig: Record<
   DashboardStateId,
   { day: number; streak: number; best: number; github: boolean; linkedin: boolean; locked: boolean }
 > = {
-  active: { day: 12, streak: 12, best: 18, github: submission.github === "submitted", linkedin: false, locked: false },
+  active: {
+    day: 12,
+    streak: 12,
+    best: 18,
+    github: submission.github === "submitted",
+    linkedin: false,
+    locked: false,
+  },
   "first-day": { day: 1, streak: 0, best: 0, github: false, linkedin: false, locked: false },
   missed: { day: 12, streak: 0, best: 11, github: false, linkedin: false, locked: false },
   empty: { day: 1, streak: 0, best: 0, github: false, linkedin: false, locked: true },
@@ -99,7 +106,9 @@ function Dashboard() {
           parsed.streak = 1;
           localStorage.setItem("abtalks_user", JSON.stringify(parsed));
         }
-      } catch {}
+      } catch (err) {
+        console.error("Failed to update user streak in localStorage:", err);
+      }
     }
   };
 
@@ -123,7 +132,9 @@ function Dashboard() {
         {/* header */}
         <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
           <div className="min-w-0">
-            <p className="label-mono">Day {cfg.day} of {student.totalDays}</p>
+            <p className="label-mono">
+              Day {cfg.day} of {student.totalDays}
+            </p>
             <h1 className="mt-2 text-3xl font-bold text-balance sm:text-4xl">
               Good evening, {userName}
             </h1>
@@ -166,7 +177,12 @@ function Dashboard() {
           <div className="min-w-0 space-y-4">
             <StateNotice state={state} />
             {state === "empty" ? <TaskCard locked day={cfg.day} /> : <TaskCard day={cfg.day} />}
-            <SubmissionStatus day={cfg.day} github={cfg.github} linkedin={cfg.linkedin} onProofUpdate={handleProofUpdate} />
+            <SubmissionStatus
+              day={cfg.day}
+              github={cfg.github}
+              linkedin={cfg.linkedin}
+              onProofUpdate={handleProofUpdate}
+            />
             <AchievementStrip />
           </div>
 

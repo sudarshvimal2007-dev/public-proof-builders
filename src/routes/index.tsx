@@ -89,7 +89,9 @@ function Landing() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="label-mono text-primary font-bold">Explore Platform</p>
-              <h2 className="mt-1 text-2xl font-extrabold sm:text-3xl">Everything You Need to Build Proof</h2>
+              <h2 className="mt-1 text-2xl font-extrabold sm:text-3xl">
+                Everything You Need to Build Proof
+              </h2>
             </div>
             <Link
               to="/challenge"
@@ -104,7 +106,10 @@ function Landing() {
               const Icon = card.icon;
               return (
                 <Link key={card.title} to={card.href} className="group block">
-                  <GlassCard tilt className="h-full p-6 transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-[0_12px_30px_-10px_oklch(0.735_0.157_156_/_20%)]">
+                  <GlassCard
+                    tilt
+                    className="h-full p-6 transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-[0_12px_30px_-10px_oklch(0.735_0.157_156_/_20%)]"
+                  >
                     <div className="flex items-center justify-between">
                       <div className="grid h-10 w-10 place-items-center rounded-xl border border-primary/30 bg-primary/10 transition-transform duration-300 group-hover:scale-110">
                         <Icon className="h-5 w-5 text-primary" />
@@ -116,7 +121,9 @@ function Landing() {
                     <h3 className="mt-4 text-lg font-extrabold text-foreground group-hover:text-primary transition-colors">
                       {card.title}
                     </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{card.desc}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                      {card.desc}
+                    </p>
                     <div className="mt-4 flex items-center gap-1 text-xs font-bold text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <span>Explore</span>
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -140,7 +147,8 @@ function Landing() {
                 Real-Time Proof, Not Resume Promises.
               </h2>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Join over {(platformStats[0]?.value ?? 12482).toLocaleString()} active students committing code daily across India.
+                Join over {(platformStats[0]?.value ?? 12482).toLocaleString()} active students
+                committing code daily across India.
               </p>
 
               <div className="mt-6 grid grid-cols-3 gap-3">

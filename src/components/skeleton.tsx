@@ -2,12 +2,7 @@ import type { HTMLAttributes } from "react";
 import { GlassCard } from "./glass-card";
 
 export function Skeleton({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={`skeleton-shimmer rounded-xl bg-muted/60 ${className}`}
-      {...props}
-    />
-  );
+  return <div className={`skeleton-shimmer rounded-xl bg-muted/60 ${className}`} {...props} />;
 }
 
 export function SkeletonCard({ className = "" }: { className?: string }) {

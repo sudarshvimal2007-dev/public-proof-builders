@@ -124,9 +124,7 @@ export function WorkspaceVisual({ progress = 0 }: { progress?: number }) {
                 </div>
                 <div
                   className={`flex items-center gap-2 rounded-xl border p-3 transition-colors duration-500 ${
-                    index >= 3
-                      ? "border-primary/35 bg-primary/10"
-                      : "border-border bg-surface"
+                    index >= 3 ? "border-primary/35 bg-primary/10" : "border-border bg-surface"
                   }`}
                 >
                   <Trophy

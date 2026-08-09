@@ -10,7 +10,8 @@ import { SkeletonPage } from "@/components/skeleton";
 import { Users, ShieldCheck, HeartHandshake, Briefcase, Sparkles, ArrowRight } from "lucide-react";
 
 const title = "About — ABTalks Public Proof Builders";
-const description = "The story and mission behind ABTalks. Empowering college students in India to build publicly, gain real proof of execution, and connect directly with hiring managers.";
+const description =
+  "The story and mission behind ABTalks. Empowering college students in India to build publicly, gain real proof of execution, and connect directly with hiring managers.";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -84,7 +85,9 @@ function AboutPage() {
             <span className="text-gradient">Indian Engineers.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            ABTalks was born out of a simple observation: college students study theory for years, yet struggle to demonstrate execution. We built the 60-Day Challenge to change that forever.
+            ABTalks was born out of a simple observation: college students study theory for years,
+            yet struggle to demonstrate execution. We built the 60-Day Challenge to change that
+            forever.
           </p>
         </section>
 

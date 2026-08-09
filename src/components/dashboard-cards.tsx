@@ -53,9 +53,13 @@ export function StreakCard({ streak, best }: { streak: number; best: number }) {
           <span className="label-mono pb-1.5">day{streak === 1 ? "" : "s"}</span>
         </div>
         <div className="mt-4 flex items-center gap-4 text-xs font-semibold text-muted-foreground border-t border-border/60 pt-3">
-          <span>Personal Best: <strong className="text-foreground">{best} days</strong></span>
+          <span>
+            Personal Best: <strong className="text-foreground">{best} days</strong>
+          </span>
           <span className="h-3 w-px bg-border" />
-          <span>Grace freezes: <strong className="text-foreground">1 remaining</strong></span>
+          <span>
+            Grace freezes: <strong className="text-foreground">1 remaining</strong>
+          </span>
         </div>
       </GlassCard>
     </Tilt3DCard>
@@ -198,12 +202,12 @@ export function SubmissionStatus({
       setGithubSubmitted(github);
       setLinkedinSubmitted(linkedin);
     }
-  }, [day, github, linkedin]);
+  }, [day, github, linkedin, STORAGE_KEY]);
 
-  const saveProofState = (gUrl: string, gSubmitted: boolean, lUrl: string, lSubmitted: boolean) => {
+  const saveState = (gUrl: string, gSubmitted: boolean, lUrl: string, lSubmitted: boolean) => {
     try {
       localStorage.setItem(
-        `abtalks_proof_day_${day}`,
+        STORAGE_KEY,
         JSON.stringify({
           day,
           githubUrl: gUrl,
@@ -211,12 +215,14 @@ export function SubmissionStatus({
           linkedinUrl: lUrl,
           linkedinSubmitted: lSubmitted,
           updatedAt: new Date().toISOString(),
-        })
+        }),
       );
       if (onProofUpdate) {
         onProofUpdate({ github: gSubmitted, linkedin: lSubmitted });
       }
-    } catch {}
+    } catch (err) {
+      console.error("Failed to save proof submission state:", err);
+    }
   };
 
   const submitGithub = (e: React.FormEvent) => {
@@ -226,14 +232,21 @@ export function SubmissionStatus({
       setGithubError("Please paste a valid GitHub commit link.");
       return;
     }
-    if (!trimmed.includes("github.com")) {
-      setGithubError("URL must be a valid GitHub link (e.g. https://github.com/user/repo/commit/...)");
+
+    const isValidGithub = /^https:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+/i.test(
+      trimmed,
+    );
+    if (!isValidGithub || trimmed.toLowerCase().startsWith("javascript:")) {
+      setGithubError(
+        "Please paste a valid HTTPS GitHub link (e.g., https://github.com/username/repo/commit/...)",
+      );
       return;
     }
+
     setGithubError("");
     setGithubSubmitted(true);
     setIsEditingGithub(false);
-    saveProofState(trimmed, true, linkedinUrl, linkedinSubmitted);
+    saveState(trimmed, true, linkedinUrl, linkedinSubmitted);
 
     if (linkedinSubmitted || linkedin) {
       setShowSuccessToast(true);
@@ -247,14 +260,20 @@ export function SubmissionStatus({
       setLinkedinError("Please paste a valid LinkedIn post link.");
       return;
     }
-    if (!trimmed.includes("linkedin.com")) {
-      setLinkedinError("URL must be a valid LinkedIn link (e.g. https://linkedin.com/posts/...)");
+
+    const isValidLinkedin =
+      /^https:\/\/(www\.)?linkedin\.com\/(in|posts|feed|company)\/[A-Za-z0-9_-]+/i.test(trimmed);
+    if (!isValidLinkedin || trimmed.toLowerCase().startsWith("javascript:")) {
+      setLinkedinError(
+        "Please paste a valid HTTPS LinkedIn post link (e.g., https://www.linkedin.com/posts/...)",
+      );
       return;
     }
+
     setLinkedinError("");
     setLinkedinSubmitted(true);
     setIsEditingLinkedin(false);
-    saveProofState(githubUrl, githubSubmitted, trimmed, true);
+    saveState(githubUrl, githubSubmitted, trimmed, true);
 
     if (githubSubmitted || github) {
       setShowSuccessToast(true);
@@ -275,8 +294,8 @@ export function SubmissionStatus({
             count === 2
               ? "bg-primary/20 text-primary border border-primary/30"
               : count === 1
-              ? "bg-warning/20 text-warning border border-warning/30"
-              : "bg-secondary text-muted-foreground border border-border"
+                ? "bg-warning/20 text-warning border border-warning/30"
+                : "bg-secondary text-muted-foreground border border-border"
           }`}
         >
           {count} / 2 Verified
@@ -289,7 +308,9 @@ export function SubmissionStatus({
             <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
             <div>
               <p className="text-sm font-bold text-foreground">Day {day} Proof Completed!</p>
-              <p className="text-xs text-muted-foreground">Your streak has been updated and recorded.</p>
+              <p className="text-xs text-muted-foreground">
+                Your streak has been updated and recorded.
+              </p>
             </div>
           </div>
           <button
@@ -468,7 +489,9 @@ export function SubmissionStatus({
 
       <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed">
         {count === 2
-          ? "✅ Both GitHub and LinkedIn proofs submitted! Your Day " + day + " progress is fully verified."
+          ? "✅ Both GitHub and LinkedIn proofs submitted! Your Day " +
+            day +
+            " progress is fully verified."
           : "Submit both proof links above to lock in your Day " + day + " streak."}
       </p>
     </GlassCard>
@@ -478,10 +501,24 @@ export function SubmissionStatus({
 /* ---------- Achievements strip ---------- */
 
 export function AchievementStrip() {
-  const [selectedAchievement, setSelectedAchievement] = useState<typeof achievements[0] | null>(null);
+  const [selectedAchievement, setSelectedAchievement] = useState<(typeof achievements)[0] | null>(
+    null,
+  );
   const [isHovered, setIsHovered] = useState(false);
   const reduced = useReducedMotion();
   const achievementList = [...achievements, ...achievements, ...achievements];
+
+  // Keydown listener for Escape key to close modal
+  useEffect(() => {
+    if (!selectedAchievement) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedAchievement(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedAchievement]);
 
   return (
     <section aria-label="Achievements" className="overflow-hidden">
@@ -517,7 +554,9 @@ export function AchievementStrip() {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => setSelectedAchievement(a)}
               className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-colors duration-300 ${
-                a.unlocked ? "border border-primary/30 hover:border-primary" : "opacity-65 hover:opacity-100 border border-border"
+                a.unlocked
+                  ? "border border-primary/30 hover:border-primary"
+                  : "opacity-65 hover:opacity-100 border border-border"
               }`}
             >
               {/* Top Badge shine highlight on unlocked */}
@@ -559,7 +598,10 @@ export function AchievementStrip() {
 
               {!a.unlocked && typeof a.progress === "number" && (
                 <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-foreground/10">
-                  <div className="h-full rounded-full bg-gradient-to-r from-primary/80 to-emerald-400/80 transition-all duration-500" style={{ width: `${a.progress}%` }} />
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-primary/80 to-emerald-400/80 transition-all duration-500"
+                    style={{ width: `${a.progress}%` }}
+                  />
                 </div>
               )}
             </motion.div>
@@ -607,7 +649,10 @@ export function AchievementStrip() {
 
             <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
               <span className="text-xs text-muted-foreground font-semibold">
-                Status: {selectedAchievement.unlocked ? "Unlocked 🎉" : `In Progress (${selectedAchievement.progress || 0}%)`}
+                Status:{" "}
+                {selectedAchievement.unlocked
+                  ? "Unlocked 🎉"
+                  : `In Progress (${selectedAchievement.progress || 0}%)`}
               </span>
               <button
                 type="button"

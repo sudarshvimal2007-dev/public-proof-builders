@@ -4,7 +4,7 @@ import { Star, Heart } from "lucide-react";
 import { testimonials } from "@/data/abtalks";
 import { useReducedMotion } from "@/hooks/use-motion";
 
-function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: number }) {
+function TestimonialCard({ t, index }: { t: (typeof testimonials)[0]; index: number }) {
   const [likes, setLikes] = useState(t.likes || 30);
   const [liked, setLiked] = useState(false);
 
@@ -62,9 +62,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
       </div>
 
       {/* Quote Content */}
-      <p className="mt-4 text-[14px] leading-relaxed font-medium text-foreground/90">
-        "{t.quote}"
-      </p>
+      <p className="mt-4 text-[14px] leading-relaxed font-medium text-foreground/90">"{t.quote}"</p>
 
       {/* Bottom Proof Status & Heart Micro-interaction */}
       <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3.5 text-xs">
@@ -120,7 +118,8 @@ export function TestimonialsSection() {
           </h2>
 
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Hover any proof card to inspect. Powered by Framer Motion 60fps streaming real student updates across India.
+            Hover any proof card to inspect. Powered by Framer Motion 60fps streaming real student
+            updates across India.
           </p>
         </div>
       </div>

@@ -38,7 +38,8 @@ export function ProgressRing({
           strokeDashoffset={offset}
           style={{
             transition: "stroke-dashoffset 1.6s cubic-bezier(0.16,1,0.3,1)",
-            filter: "drop-shadow(0 0 8px color-mix(in oklab, var(--color-primary) 55%, transparent))",
+            filter:
+              "drop-shadow(0 0 8px color-mix(in oklab, var(--color-primary) 55%, transparent))",
           }}
         />
       </svg>

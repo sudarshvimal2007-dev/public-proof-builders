@@ -3,13 +3,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
 import { Footer } from "@/components/footer";
-import { WhySection, ProgressSection, AchievementsSection, CTASection } from "@/components/landing-sections";
+import {
+  WhySection,
+  ProgressSection,
+  AchievementsSection,
+  CTASection,
+} from "@/components/landing-sections";
 import { GlassCard } from "@/components/glass-card";
 import { SkeletonPage } from "@/components/skeleton";
 import { Flame, CheckCircle2, ShieldCheck, ArrowRight, Zap, Target } from "lucide-react";
 
 const title = "The 60-Day Challenge — ABTalks";
-const description = "Everything you need to know about the ABTalks 60-Day Public Build Challenge. Daily coding, GitHub commits, LinkedIn proofs, and proof of execution.";
+const description =
+  "Everything you need to know about the ABTalks 60-Day Public Build Challenge. Daily coding, GitHub commits, LinkedIn proofs, and proof of execution.";
 
 export const Route = createFileRoute("/challenge")({
   head: () => ({
@@ -83,7 +89,8 @@ function ChallengePage() {
             <span className="text-gradient">Unshakeable Proof.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            No endless lectures. No passive tutorials. A daily discipline of building real software, committing code, and publishing proof.
+            No endless lectures. No passive tutorials. A daily discipline of building real software,
+            committing code, and publishing proof.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -106,7 +113,9 @@ function ChallengePage() {
         {/* Rules Grid */}
         <section className="mt-20">
           <h2 className="text-center text-2xl font-bold sm:text-3xl">Challenge Guidelines</h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">The non-negotiables of building in public.</p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            The non-negotiables of building in public.
+          </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {challengeRules.map((rule) => {

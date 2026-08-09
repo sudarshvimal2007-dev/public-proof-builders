@@ -140,9 +140,7 @@ function DayPage() {
             <li
               key={step.label}
               className={`rounded-2xl border p-3 text-center transition-colors duration-500 ${
-                step.done
-                  ? "border-primary/35 bg-primary/10"
-                  : "border-border bg-surface/70"
+                step.done ? "border-primary/35 bg-primary/10" : "border-border bg-surface/70"
               }`}
             >
               <step.icon
@@ -231,7 +229,10 @@ function DayPage() {
                         aria-hidden="true"
                       />
                     ) : (
-                      <Circle className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+                      <Circle
+                        className="h-5 w-5 shrink-0 text-muted-foreground"
+                        aria-hidden="true"
+                      />
                     )}
                     <span className={isChecked ? "text-muted-foreground" : ""}>{req.label}</span>
                   </button>

@@ -12,7 +12,9 @@ export function Footer() {
               <span className="grid h-9 w-9 place-items-center rounded-lg border border-primary/35 bg-primary/14">
                 <Terminal className="h-4.5 w-4.5 text-primary" aria-hidden="true" />
               </span>
-              <span className="font-logo text-xl font-extrabold tracking-[0.12em] text-foreground">ABTALKS</span>
+              <span className="font-logo text-xl font-extrabold tracking-[0.12em] text-foreground">
+                ABTALKS
+              </span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               A 60-day public build challenge for Indian college students. Learn, build, commit,

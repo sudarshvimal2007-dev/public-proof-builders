@@ -1,6 +1,17 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Terminal, Github, ArrowRight, Lock, Mail, User, Eye, EyeOff, CheckCircle2, Shield } from "lucide-react";
+import {
+  Terminal,
+  Github,
+  ArrowRight,
+  Lock,
+  Mail,
+  User,
+  Eye,
+  EyeOff,
+  CheckCircle2,
+  Shield,
+} from "lucide-react";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
 
 export const Route = createFileRoute("/login")({
@@ -9,7 +20,8 @@ export const Route = createFileRoute("/login")({
       { title: "Log In — ABTalks 60-Day Public Build Challenge" },
       {
         name: "description",
-        content: "Log in or create your builder profile to start your 60-day public coding challenge.",
+        content:
+          "Log in or create your builder profile to start your 60-day public coding challenge.",
       },
     ],
   }),

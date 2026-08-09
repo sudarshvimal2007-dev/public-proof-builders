@@ -195,8 +195,7 @@ export const testimonials = [
     likes: 48,
     proofBadge: "LinkedIn ✓",
     proofType: "GitHub + LinkedIn",
-    quote:
-      "The LinkedIn posts felt cringe at first. Now 3 interviews lined up.",
+    quote: "The LinkedIn posts felt cringe at first. Now 3 interviews lined up.",
   },
   {
     name: "Dev J.",
@@ -206,8 +205,7 @@ export const testimonials = [
     likes: 39,
     proofBadge: "LinkedIn ✓",
     proofType: "GitHub + LinkedIn",
-    quote:
-      "Missed day 9, used freeze. The grace made me not quit.",
+    quote: "Missed day 9, used freeze. The grace made me not quit.",
   },
   {
     name: "Priya S.",
@@ -217,8 +215,7 @@ export const testimonials = [
     likes: 54,
     proofBadge: "LinkedIn ✓",
     proofType: "GitHub + LinkedIn",
-    quote:
-      "Day 18 and recruiters started viewing my profile daily. Streak = credibility.",
+    quote: "Day 18 and recruiters started viewing my profile daily. Streak = credibility.",
   },
   {
     name: "Rohan K.",
@@ -228,8 +225,7 @@ export const testimonials = [
     likes: 42,
     proofBadge: "LinkedIn ✓",
     proofType: "GitHub + LinkedIn",
-    quote:
-      "Used to tutorial hell. This forced me to ship. 42 commits in 60 days.",
+    quote: "Used to tutorial hell. This forced me to ship. 42 commits in 60 days.",
   },
   {
     name: "Sneha R.",

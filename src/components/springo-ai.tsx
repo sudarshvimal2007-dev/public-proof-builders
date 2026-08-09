@@ -69,14 +69,14 @@ export function SpringoAI() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
   const modalRef = useRef<HTMLDivElement>(null);
+  const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // Click outside listener to close modal when active
+  // Click outside and Escape key listener to close modal when active
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
@@ -84,9 +84,25 @@ export function SpringoAI() {
         setIsOpen(false);
       }
     };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen]);
+
+  // Clean up typing timer on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+    };
+  }, []);
 
   const generateSpringoResponse = (query: string): string => {
     const q = query.toLowerCase();
@@ -94,16 +110,34 @@ export function SpringoAI() {
     if (q.includes("front") || q.includes("react") || q.includes("css") || q.includes("web")) {
       return ROADMAP_KNOWLEDGE.frontend;
     }
-    if (q.includes("back") || q.includes("node") || q.includes("api") || q.includes("db") || q.includes("sql")) {
+    if (
+      q.includes("back") ||
+      q.includes("node") ||
+      q.includes("api") ||
+      q.includes("db") ||
+      q.includes("sql")
+    ) {
       return ROADMAP_KNOWLEDGE.backend;
     }
-    if (q.includes("ai") || q.includes("ml") || q.includes("python") || q.includes("model") || q.includes("llm")) {
+    if (
+      q.includes("ai") ||
+      q.includes("ml") ||
+      q.includes("python") ||
+      q.includes("model") ||
+      q.includes("llm")
+    ) {
       return ROADMAP_KNOWLEDGE.ai;
     }
     if (q.includes("devops") || q.includes("docker") || q.includes("cloud") || q.includes("aws")) {
       return ROADMAP_KNOWLEDGE.devops;
     }
-    if (q.includes("challenge") || q.includes("abtalks") || q.includes("streak") || q.includes("proof") || q.includes("day 1")) {
+    if (
+      q.includes("challenge") ||
+      q.includes("abtalks") ||
+      q.includes("streak") ||
+      q.includes("proof") ||
+      q.includes("day 1")
+    ) {
       return ROADMAP_KNOWLEDGE.abtalks;
     }
 
@@ -112,13 +146,16 @@ export function SpringoAI() {
   };
 
   const handleSend = (textToSend?: string) => {
-    const text = textToSend || input.trim();
-    if (!text) return;
+    const rawText = textToSend || input.trim();
+    if (!rawText) return;
+
+    // Sanitize string input
+    const sanitizedText = rawText.slice(0, 500);
 
     const userMsg: Message = {
       id: Date.now().toString(),
       sender: "user",
-      text,
+      text: sanitizedText,
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
@@ -126,8 +163,9 @@ export function SpringoAI() {
     if (!textToSend) setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      const responseText = generateSpringoResponse(text);
+    if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+    typingTimerRef.current = setTimeout(() => {
+      const responseText = generateSpringoResponse(sanitizedText);
       const springoMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: "springo",
@@ -175,6 +213,9 @@ export function SpringoAI() {
       {isOpen && (
         <div
           ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Springo AI Assistant"
           className="animate-pop-in fixed inset-x-4 bottom-32 sm:bottom-32 sm:right-12 sm:left-auto sm:w-[430px] z-50 mx-auto max-w-lg"
         >
           <div className="relative flex h-[550px] flex-col overflow-hidden rounded-3xl border border-white/20 dark:border-primary/40 bg-background/35 p-0 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-3xl">
@@ -191,9 +232,12 @@ export function SpringoAI() {
                   <Bot className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold tracking-wide text-foreground">Springo AI</h3>
+                  <h3 className="text-sm font-extrabold tracking-wide text-foreground">
+                    Springo AI
+                  </h3>
                   <p className="text-[10px] font-semibold text-emerald-400 flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Roadmap & ABTalks Guide
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />{" "}
+                    Roadmap & ABTalks Guide
                   </p>
                 </div>
               </div>
@@ -223,7 +267,9 @@ export function SpringoAI() {
                     {msg.text}
                     <div
                       className={`mt-1.5 text-[9px] ${
-                        msg.sender === "user" ? "text-primary-foreground/80" : "text-muted-foreground"
+                        msg.sender === "user"
+                          ? "text-primary-foreground/80"
+                          : "text-muted-foreground"
                       } text-right font-medium`}
                     >
                       {msg.timestamp}
@@ -235,7 +281,8 @@ export function SpringoAI() {
               {isTyping && (
                 <div className="flex justify-start">
                   <div className="rounded-2xl border border-white/15 bg-surface/30 backdrop-blur-xl p-3 text-muted-foreground flex items-center gap-2">
-                    <Sparkles className="h-3.5 w-3.5 animate-spin text-primary" /> Springo AI is crafting answer...
+                    <Sparkles className="h-3.5 w-3.5 animate-spin text-primary" /> Springo AI is
+                    crafting answer...
                   </div>
                 </div>
               )}

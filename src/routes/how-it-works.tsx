@@ -6,10 +6,19 @@ import { Footer } from "@/components/footer";
 import { JourneySection, CTASection } from "@/components/landing-sections";
 import { GlassCard } from "@/components/glass-card";
 import { SkeletonPage } from "@/components/skeleton";
-import { Terminal, ShieldCheck, ArrowRight, Sparkles, CheckCircle2, Share2, Code2 } from "lucide-react";
+import {
+  Terminal,
+  ShieldCheck,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  Share2,
+  Code2,
+} from "lucide-react";
 
 const title = "How It Works — ABTalks";
-const description = "Learn the 4-step workflow of the ABTalks 60-Day Challenge: Receive daily task, build code, commit to GitHub, post on LinkedIn, and build verified proof.";
+const description =
+  "Learn the 4-step workflow of the ABTalks 60-Day Challenge: Receive daily task, build code, commit to GitHub, post on LinkedIn, and build verified proof.";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
@@ -86,7 +95,8 @@ export function HowItWorksPage() {
             <span className="text-gradient">Verified Career Proof.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Understand how daily coding, GitHub commits, and public proof posts combine into an unbeatable builder portfolio.
+            Understand how daily coding, GitHub commits, and public proof posts combine into an
+            unbeatable builder portfolio.
           </p>
         </section>
 
@@ -122,7 +132,8 @@ export function HowItWorksPage() {
                 What if I miss a day?
               </h4>
               <p className="mt-2 text-xs text-muted-foreground">
-                You get 1 streak freeze per month. If you miss a second day without a freeze, your active streak resets to 0, but your total proof log remains intact.
+                You get 1 streak freeze per month. If you miss a second day without a freeze, your
+                active streak resets to 0, but your total proof log remains intact.
               </p>
             </div>
             <div>
@@ -131,7 +142,8 @@ export function HowItWorksPage() {
                 Can I use any programming language?
               </h4>
               <p className="mt-2 text-xs text-muted-foreground">
-                Yes! Tasks specify functional requirements. You are free to implement using React, Next.js, Node.js, Python, Go, or any stack of your choice.
+                Yes! Tasks specify functional requirements. You are free to implement using React,
+                Next.js, Node.js, Python, Go, or any stack of your choice.
               </p>
             </div>
             <div>
@@ -140,7 +152,8 @@ export function HowItWorksPage() {
                 How do recruiters see my proof?
               </h4>
               <p className="mt-2 text-xs text-muted-foreground">
-                Recruiters access a dedicated dashboard with verified GitHub commits, code diffs, and your daily LinkedIn logs sorted by consistency.
+                Recruiters access a dedicated dashboard with verified GitHub commits, code diffs,
+                and your daily LinkedIn logs sorted by consistency.
               </p>
             </div>
             <div>
@@ -149,7 +162,8 @@ export function HowItWorksPage() {
                 Is ABTalks free to join?
               </h4>
               <p className="mt-2 text-xs text-muted-foreground">
-                Yes, 100% free for college students across India. All you need is a GitHub account and a LinkedIn profile.
+                Yes, 100% free for college students across India. All you need is a GitHub account
+                and a LinkedIn profile.
               </p>
             </div>
           </div>

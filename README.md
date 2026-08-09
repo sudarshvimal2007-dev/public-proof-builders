@@ -6,23 +6,23 @@ Build a polished, production-quality **mobile-first web experience for ABTalks**
 
 The product helps students:
 
-* Learn consistently for 60 days
+- Learn consistently for 60 days
 
-* Build something every day
+- Build something every day
 
-* Submit GitHub proof of work
+- Submit GitHub proof of work
 
-* Share daily progress on LinkedIn
+- Share daily progress on LinkedIn
 
-* Build a public learning record
+- Build a public learning record
 
-* Earn badges and achievements
+- Earn badges and achievements
 
-* Maintain a streak
+- Maintain a streak
 
-* Compete on a leaderboard
+- Compete on a leaderboard
 
-* Build credibility that can give them an edge with recruiters
+- Build credibility that can give them an edge with recruiters
 
 The existing product works but has never been properly designed. This redesign should make ABTalks feel like a **premium modern SaaS product with a developer-focused identity, subtle gamification, strong motion design, and excellent mobile UX.**
 
@@ -46,15 +46,15 @@ Primary brand message:
 
 Use dynamic hero copy where the phrase after "Build" changes smoothly:
 
-* Build Publicly.
+- Build Publicly.
 
-* Build Daily.
+- Build Daily.
 
-* Build Consistently.
+- Build Consistently.
 
-* Build Your Proof.
+- Build Your Proof.
 
-* Build Your Edge.
+- Build Your Edge.
 
 The changing text should use a smooth, premium transition such as vertical slide + blur/fade. Avoid a cheap typewriter effect.
 
@@ -92,43 +92,43 @@ Reference the design quality and cleanliness of modern SaaS products, but do NOT
 
 The interface should feel:
 
-* Premium
+- Premium
 
-* Modern
+- Modern
 
-* Developer-focused
+- Developer-focused
 
-* Motivating
+- Motivating
 
-* Clean
+- Clean
 
-* High-tech
+- High-tech
 
-* Slightly competitive
+- Slightly competitive
 
-* Visually memorable
+- Visually memorable
 
-* Recruiter-friendly
+- Recruiter-friendly
 
 Avoid:
 
-* Excessive neon
+- Excessive neon
 
-* Childish gamification
+- Childish gamification
 
-* Crypto aesthetics
+- Crypto aesthetics
 
-* Generic hacker aesthetics
+- Generic hacker aesthetics
 
-* Excessive terminal/code decoration
+- Excessive terminal/code decoration
 
-* Clutter
+- Clutter
 
-* Random animations
+- Random animations
 
-* Poor contrast
+- Poor contrast
 
-* AI-generated-looking UI
+- AI-generated-looking UI
 
 The interface should look deliberately designed.
 
@@ -150,19 +150,19 @@ The green should be restrained and premium, NOT bright neon.
 
 Use green primarily for:
 
-* Progress
+- Progress
 
-* Streaks
+- Streaks
 
-* Success
+- Success
 
-* Active states
+- Active states
 
-* Achievement highlights
+- Achievement highlights
 
-* Ambient background lighting
+- Ambient background lighting
 
-* Important positive statistics
+- Important positive statistics
 
 Use neutral whites/grays for most typography.
 
@@ -182,19 +182,19 @@ Use a modern SaaS typography system.
 
 Prioritize:
 
-* Excellent readability
+- Excellent readability
 
-* Large strong headings
+- Large strong headings
 
-* Clear hierarchy
+- Clear hierarchy
 
-* Comfortable line height
+- Comfortable line height
 
-* Generous spacing
+- Generous spacing
 
-* Strong numerical typography
+- Strong numerical typography
 
-* Clean labels
+- Clean labels
 
 Use a modern sans-serif font.
 
@@ -242,13 +242,13 @@ Subtle animated green glow.
 
 Use:
 
-* Soft gradients
+- Soft gradients
 
-* Slow-moving ambient light
+- Slow-moving ambient light
 
-* Very subtle grid if appropriate
+- Very subtle grid if appropriate
 
-* Blur
+- Blur
 
 Keep opacity low.
 
@@ -318,21 +318,21 @@ Optional small navigation action if needed, but do NOT make the hero CTA the pri
 
 Navbar behavior:
 
-* Transparent/glass when at top
+- Transparent/glass when at top
 
-* Becomes slightly more opaque when scrolling
+- Becomes slightly more opaque when scrolling
 
-* Backdrop blur
+- Backdrop blur
 
-* Smooth transition
+- Smooth transition
 
-* Subtle bottom border
+- Subtle bottom border
 
-* Hover effects on navigation items
+- Hover effects on navigation items
 
-* Active navigation indicator
+- Active navigation indicator
 
-* Smooth theme transition
+- Smooth theme transition
 
 Desktop navbar should feel premium.
 
@@ -378,13 +378,13 @@ Do NOT put a large primary CTA in the hero.
 
 Instead include:
 
-* Scroll indicator
+- Scroll indicator
 
-* Small supporting credibility information
+- Small supporting credibility information
 
-* Animated platform statistics
+- Animated platform statistics
 
-* Product visualization
+- Product visualization
 
 Hero visual:
 
@@ -454,19 +454,19 @@ Streaks, milestones, and achievements make showing up every day easier.
 
 Cards should use multiple subtle effects:
 
-* Glassmorphism
+- Glassmorphism
 
-* Gradient border
+- Gradient border
 
-* Hover lift
+- Hover lift
 
-* Spotlight glow
+- Spotlight glow
 
-* Subtle 3D tilt on desktop
+- Subtle 3D tilt on desktop
 
-* Inner gradient movement
+- Inner gradient movement
 
-* Smooth shadow transition
+- Smooth shadow transition
 
 Do not make these effects overwhelming.
 
@@ -540,15 +540,15 @@ Create an animated 60-day progress visualization.
 
 Use:
 
-* Progress ring
+- Progress ring
 
-* 60-day timeline
+- 60-day timeline
 
-* Animated completion bar
+- Animated completion bar
 
-* Milestone nodes
+- Milestone nodes
 
-* Contribution-style activity visualization
+- Contribution-style activity visualization
 
 Example:
 
@@ -682,19 +682,19 @@ Create a horizontal automatically scrolling testimonial carousel.
 
 Requirements:
 
-* Auto-scroll continuously
+- Auto-scroll continuously
 
-* Pause on hover
+- Pause on hover
 
-* Card lift on hover
+- Card lift on hover
 
-* Spotlight/glow
+- Spotlight/glow
 
-* Smooth transition
+- Smooth transition
 
-* Mobile swipe support
+- Mobile swipe support
 
-* Do not make the carousel too fast
+- Do not make the carousel too fast
 
 Use realistic student testimonials.
 
@@ -768,19 +768,19 @@ Mobile-first.
 
 The student should immediately understand:
 
-* Current streak
+- Current streak
 
-* Today's task
+- Today's task
 
-* Challenge progress
+- Challenge progress
 
-* Overall completion
+- Overall completion
 
-* Achievements
+- Achievements
 
-* Standing
+- Standing
 
-* Submission status
+- Submission status
 
 ---
 
@@ -844,15 +844,15 @@ Build a responsive developer portfolio hero section.
 
 Include:
 
-* Task description
+- Task description
 
-* Estimated difficulty
+- Estimated difficulty
 
-* Estimated time
+- Estimated time
 
-* Skills
+- Skills
 
-* Completion status
+- Completion status
 
 Primary interaction:
 
@@ -1112,19 +1112,19 @@ Do not create an excessive confetti explosion.
 
 Support:
 
-* GitHub missing
+- GitHub missing
 
-* Commit missing
+- Commit missing
 
-* LinkedIn missing
+- LinkedIn missing
 
-* Invalid URL
+- Invalid URL
 
-* Submission incomplete
+- Submission incomplete
 
-* Already completed day
+- Already completed day
 
-* Missed day
+- Missed day
 
 The UI should clearly explain what remains.
 
@@ -1136,17 +1136,17 @@ Use lightweight gamification.
 
 Use:
 
-* Streaks
+- Streaks
 
-* XP/tokens
+- XP/tokens
 
-* Badges
+- Badges
 
-* Milestones
+- Milestones
 
-* Leaderboard
+- Leaderboard
 
-* Completion percentage
+- Completion percentage
 
 Avoid making it feel like a children's game.
 
@@ -1162,27 +1162,27 @@ Mobile is the highest priority.
 
 Requirements:
 
-* No horizontal overflow
+- No horizontal overflow
 
-* No clipped text
+- No clipped text
 
-* No tiny buttons
+- No tiny buttons
 
-* Thumb-friendly controls
+- Thumb-friendly controls
 
-* Minimum comfortable touch target
+- Minimum comfortable touch target
 
-* Large cards
+- Large cards
 
-* Proper spacing
+- Proper spacing
 
-* Sticky/mobile navigation where useful
+- Sticky/mobile navigation where useful
 
-* Readable typography
+- Readable typography
 
-* Proper form inputs
+- Proper form inputs
 
-* Clear visual hierarchy
+- Clear visual hierarchy
 
 Do NOT simply shrink desktop layouts.
 
@@ -1196,35 +1196,35 @@ Reduce heavy desktop effects on mobile.
 
 Disable/reduce:
 
-* 3D laptop
+- 3D laptop
 
-* Heavy particles
+- Heavy particles
 
-* Mouse-following effects
+- Mouse-following effects
 
-* Complex parallax
+- Complex parallax
 
-* Large animated backgrounds
+- Large animated backgrounds
 
-* Heavy blur
+- Heavy blur
 
-* Complex 3D transforms
+- Complex 3D transforms
 
 Keep:
 
-* Simple reveal
+- Simple reveal
 
-* Progress animations
+- Progress animations
 
-* Counter animations
+- Counter animations
 
-* Button micro-interactions
+- Button micro-interactions
 
-* Streak animation
+- Streak animation
 
-* Small card transitions
+- Small card transitions
 
-* Lightweight gradients
+- Lightweight gradients
 
 Performance is more important than decorative effects.
 
@@ -1238,45 +1238,45 @@ Use animations selectively.
 
 Preferred effects:
 
-* Parallax scrolling
+- Parallax scrolling
 
-* Scroll reveal
+- Scroll reveal
 
-* Scroll fade
+- Scroll fade
 
-* Scroll slide
+- Scroll slide
 
-* Progressive blur
+- Progressive blur
 
-* Sticky sections
+- Sticky sections
 
-* Scroll-based transformations
+- Scroll-based transformations
 
-* Animated counters
+- Animated counters
 
-* Animated progress bars
+- Animated progress bars
 
-* Animated graphs
+- Animated graphs
 
-* Auto-scrolling testimonials
+- Auto-scrolling testimonials
 
-* Hover lift
+- Hover lift
 
-* Hover glow
+- Hover glow
 
-* Cursor spotlight
+- Cursor spotlight
 
-* Subtle 3D tilt
+- Subtle 3D tilt
 
-* Floating elements
+- Floating elements
 
-* Animated background gradients
+- Animated background gradients
 
-* Laptop scroll transformation
+- Laptop scroll transformation
 
-* Magnetic primary buttons
+- Magnetic primary buttons
 
-* Smooth page transitions
+- Smooth page transitions
 
 Do not use every effect everywhere.
 
@@ -1290,19 +1290,19 @@ Cards should feel premium.
 
 Use combinations of:
 
-* Glassmorphism
+- Glassmorphism
 
-* Subtle gradient border
+- Subtle gradient border
 
-* Hover lift
+- Hover lift
 
-* Spotlight glow
+- Spotlight glow
 
-* Subtle 3D tilt on desktop
+- Subtle 3D tilt on desktop
 
-* Inner gradient animation
+- Inner gradient animation
 
-* Smooth shadow transition
+- Smooth shadow transition
 
 Avoid excessive shadows.
 
@@ -1314,25 +1314,25 @@ Cards must remain readable.
 
 Primary buttons:
 
-* Subtle green glow
+- Subtle green glow
 
-* Slight magnetic/hover movement
+- Slight magnetic/hover movement
 
 Secondary buttons:
 
-* Border transition
+- Border transition
 
-* Arrow/icon movement
+- Arrow/icon movement
 
 Buttons should have:
 
-* Clear hover state
+- Clear hover state
 
-* Active/pressed state
+- Active/pressed state
 
-* Disabled state
+- Disabled state
 
-* Loading state where relevant
+- Loading state where relevant
 
 ---
 
@@ -1374,27 +1374,27 @@ Create realistic mock data.
 
 Include:
 
-* Student name
+- Student name
 
-* Challenge day
+- Challenge day
 
-* Streak
+- Streak
 
-* Best streak
+- Best streak
 
-* Overall completion
+- Overall completion
 
-* GitHub commits
+- GitHub commits
 
-* LinkedIn posts
+- LinkedIn posts
 
-* Achievements
+- Achievements
 
-* Leaderboard
+- Leaderboard
 
-* Today's task
+- Today's task
 
-* Submission state
+- Submission state
 
 Keep data centralized so it can easily be modified later.
 
@@ -1454,21 +1454,21 @@ Use reusable design tokens.
 
 Ensure:
 
-* Good color contrast
+- Good color contrast
 
-* Keyboard navigation
+- Keyboard navigation
 
-* Visible focus states
+- Visible focus states
 
-* Semantic HTML
+- Semantic HTML
 
-* Accessible buttons
+- Accessible buttons
 
-* Accessible forms
+- Accessible forms
 
-* Alt text where appropriate
+- Alt text where appropriate
 
-* Reduced motion support
+- Reduced motion support
 
 ---
 
@@ -1512,41 +1512,41 @@ Verify:
 
 /
 
-* Hero is immediately understandable
+- Hero is immediately understandable
 
-* No CTA overload
+- No CTA overload
 
-* Typography is readable
+- Typography is readable
 
-* Animations don't block content
+- Animations don't block content
 
-* Page looks premium
+- Page looks premium
 
 /dashboard
 
-* Current streak is immediately visible
+- Current streak is immediately visible
 
-* Today's task is obvious
+- Today's task is obvious
 
-* Progress is understandable
+- Progress is understandable
 
-* Submission status is clear
+- Submission status is clear
 
-* Edge cases are represented
+- Edge cases are represented
 
 /day/12
 
-* Task is understandable
+- Task is understandable
 
-* Requirements are clear
+- Requirements are clear
 
-* GitHub proof is easy
+- GitHub proof is easy
 
-* LinkedIn proof is easy
+- LinkedIn proof is easy
 
-* Submission state is obvious
+- Submission state is obvious
 
-* Completion feedback is satisfying
+- Completion feedback is satisfying
 
 Also test desktop.
 

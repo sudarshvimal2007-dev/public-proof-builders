@@ -38,9 +38,7 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <div
-        className={`flex items-center gap-2 ${align === "center" ? "justify-center" : ""}`}
-      >
+      <div className={`flex items-center gap-2 ${align === "center" ? "justify-center" : ""}`}>
         <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_var(--color-primary)]" />
         <span className="label-mono">{eyebrow}</span>
       </div>

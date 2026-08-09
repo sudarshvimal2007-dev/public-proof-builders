@@ -1,4 +1,14 @@
-import { ArrowRight, Flame, Trophy, Users, GitCommitHorizontal, Megaphone, Code2, GitBranch, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  Flame,
+  Trophy,
+  Users,
+  GitCommitHorizontal,
+  Megaphone,
+  Code2,
+  GitBranch,
+  Lock,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { GlassCard } from "@/components/glass-card";
 import { Reveal, SectionHeading } from "@/components/reveal";
@@ -36,7 +46,8 @@ export function WhySection() {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-6">
         {whyCards.map((card, i) => {
-          const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[card.icon] || Icons.Sparkles;
+          const Icon =
+            (Icons as unknown as Record<string, Icons.LucideIcon>)[card.icon] || Icons.Sparkles;
           return (
             <Reveal key={card.title} delay={i * 90}>
               <GlassCard tilt className="h-full p-6 lg:p-7">
@@ -96,7 +107,8 @@ export function JourneySection() {
 
         <ol className="grid gap-8 lg:grid-cols-4 lg:gap-6">
           {journeySteps.map((step, i) => {
-            const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[step.icon] || Icons.Sparkles;
+            const Icon =
+              (Icons as unknown as Record<string, Icons.LucideIcon>)[step.icon] || Icons.Sparkles;
             const reached = fill > i * 25;
             return (
               <Reveal as="li" key={step.num} delay={i * 100} className="relative pl-14 lg:pl-0">
@@ -249,7 +261,9 @@ export function ProgressSection() {
                       }`}
                       style={{ transitionDelay: `${i * 120}ms` }}
                     />
-                    <span className="label-mono text-[9px]">Day {String(m.day).padStart(2, "0")}</span>
+                    <span className="label-mono text-[9px]">
+                      Day {String(m.day).padStart(2, "0")}
+                    </span>
                     <span className="text-[11px] text-muted-foreground">{m.label}</span>
                   </li>
                 );
@@ -399,10 +413,8 @@ export function LeaderboardSection() {
           </div>
           <div className="mt-6 rounded-2xl border border-primary/25 bg-primary/8 p-4">
             <p className="text-sm text-foreground">
-              <span className="font-semibold text-primary">
-                ↑ {student.daysToNextRank} days
-              </span>{" "}
-              to reach #{student.nextRank}
+              <span className="font-semibold text-primary">↑ {student.daysToNextRank} days</span> to
+              reach #{student.nextRank}
             </p>
             <p className="mt-1 text-[13px] text-muted-foreground">
               Rank moves with consistency, not raw volume.

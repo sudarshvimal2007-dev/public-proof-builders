@@ -29,7 +29,9 @@ export function TerminalLoader({
         aria-live="polite"
         aria-label="Loading page"
         className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4 transition-opacity duration-300 ${
-          resolvedTheme === "light" ? "bg-background/90 backdrop-blur-md" : "bg-black/90 backdrop-blur-md"
+          resolvedTheme === "light"
+            ? "bg-background/90 backdrop-blur-md"
+            : "bg-black/90 backdrop-blur-md"
         }`}
       >
         {content}

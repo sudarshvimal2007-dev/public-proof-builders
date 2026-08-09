@@ -10,20 +10,20 @@
  */
 
 @font-face {
-  font-family: 'Deltha';
+  font-family: "Deltha";
   src:
-    url('/fonts/Deltha.woff2') format('woff2'),
-    url('/fonts/Deltha.ttf') format('truetype'),
-    local('Deltha'),
-    local('Deltha-Regular');
+    url("/fonts/Deltha.woff2") format("woff2"),
+    url("/fonts/Deltha.ttf") format("truetype"),
+    local("Deltha"),
+    local("Deltha-Regular");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Qadone';
-  src: local('Qadone'), local('Qadone-Regular'), local('Qadone Regular'), local('Qadone Bold');
+  font-family: "Qadone";
+  src: local("Qadone"), local("Qadone-Regular"), local("Qadone Regular"), local("Qadone Bold");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -103,7 +103,8 @@
 
   --grid-line: oklch(1 0 0 / 3.5%);
   --shadow-card: 0 1px 0 0 oklch(1 0 0 / 5%) inset, 0 20px 40px -24px oklch(0 0 0 / 70%);
-  --glow-primary: 0 0 0 1px oklch(0.735 0.157 156 / 22%), 0 18px 50px -18px oklch(0.735 0.157 156 / 40%);
+  --glow-primary:
+    0 0 0 1px oklch(0.735 0.157 156 / 22%), 0 18px 50px -18px oklch(0.735 0.157 156 / 40%);
   --gradient-primary: linear-gradient(135deg, oklch(0.78 0.16 158), oklch(0.66 0.14 172));
   --gradient-text: linear-gradient(180deg, oklch(0.99 0 0), oklch(0.72 0.01 165));
   --gradient-surface: linear-gradient(160deg, oklch(1 0 0 / 6%), oklch(1 0 0 / 1%));
@@ -133,9 +134,14 @@
   --glass: oklch(1 0 0 / 72%);
   --grid-line: oklch(0.19 0.005 165 / 5%);
   --shadow-card: 0 1px 0 0 oklch(1 0 0 / 60%) inset, 0 18px 36px -26px oklch(0.19 0.05 165 / 30%);
-  --glow-primary: 0 0 0 1px oklch(0.55 0.13 158 / 18%), 0 16px 40px -20px oklch(0.55 0.13 158 / 35%);
+  --glow-primary:
+    0 0 0 1px oklch(0.55 0.13 158 / 18%), 0 16px 40px -20px oklch(0.55 0.13 158 / 35%);
   --gradient-text: linear-gradient(180deg, oklch(0.28 0.01 165), oklch(0.45 0.01 165));
-  --gradient-surface: linear-gradient(160deg, oklch(0.19 0.005 165 / 4%), oklch(0.19 0.005 165 / 1%));
+  --gradient-surface: linear-gradient(
+    160deg,
+    oklch(0.19 0.005 165 / 4%),
+    oklch(0.19 0.005 165 / 1%)
+  );
 }
 
 @layer base {
@@ -499,7 +505,9 @@
   border-radius: 45%;
   transform: rotate(140deg);
   border: 4px solid transparent;
-  box-shadow: inset 0px 16px #a85103, inset 0px 16px 1px 1px #a85103;
+  box-shadow:
+    inset 0px 16px #a85103,
+    inset 0px 16px 1px 1px #a85103;
 }
 
 .retro-tv-wrapper .antenna::after {
@@ -755,7 +763,9 @@
 
 @keyframes tvNoise {
   100% {
-    background-position: 50% 0, 60% 50%;
+    background-position:
+      50% 0,
+      60% 50%;
   }
 }
 
@@ -804,7 +814,10 @@
   border-radius: 50%;
   background-color: #7f5934;
   border: 2px solid black;
-  box-shadow: inset 2px 2px 1px #b49577, -2px 0px #513721, -2px 0px 0px 1px black;
+  box-shadow:
+    inset 2px 2px 1px #b49577,
+    -2px 0px #513721,
+    -2px 0px 0px 1px black;
   position: relative;
 }
 
@@ -849,7 +862,10 @@
   border-radius: 50%;
   background-color: #7f5934;
   border: 2px solid black;
-  box-shadow: inset 2px 2px 1px #b49577, -2px 0px #513721, -2px 0px 0px 1px black;
+  box-shadow:
+    inset 2px 2px 1px #b49577,
+    -2px 0px #513721,
+    -2px 0px 0px 1px black;
   position: relative;
 }
 
@@ -1111,7 +1127,7 @@
     135deg,
     oklch(0.735 0.157 156 / 95%) 0%,
     oklch(0.65 0.18 160 / 90%) 50%,
-    oklch(0.55 0.20 165 / 95%) 100%
+    oklch(0.55 0.2 165 / 95%) 100%
   );
   color: #03150d;
   font-weight: 700;
@@ -1162,7 +1178,7 @@
   transform: translateY(-2px) scale(1.02);
   box-shadow:
     0 10px 30px -4px oklch(0.735 0.157 156 / 65%),
-    0 0 0 1.5px oklch(0.90 0.18 156 / 80%) inset,
+    0 0 0 1.5px oklch(0.9 0.18 156 / 80%) inset,
     0 2px 4px 0 rgba(255, 255, 255, 0.7) inset;
 }
 
@@ -1183,11 +1199,7 @@
   isolation: isolate;
   overflow: hidden;
   border-radius: 9999px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
   color: var(--color-foreground);
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1202,11 +1214,7 @@
 
 .liquid-glass-btn-secondary:hover {
   transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.06) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow:
     0 8px 24px -4px rgba(0, 0, 0, 0.35),
@@ -1321,13 +1329,7 @@
   filter: blur(0);
   z-index: -1;
   box-shadow: none;
-  background: conic-gradient(
-    #00000000 80deg,
-    #40baf7,
-    #f34ad7,
-    #5bfcc4,
-    #00000000 280deg
-  );
+  background: conic-gradient(#00000000 80deg, #40baf7, #f34ad7, #5bfcc4, #00000000 280deg);
   transition: all 0.3s ease;
 }
 

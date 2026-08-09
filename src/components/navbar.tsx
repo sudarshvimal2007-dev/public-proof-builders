@@ -229,7 +229,8 @@ export function Navbar() {
                         </span>
                         <span className="flex items-center gap-1.5 text-[11px] font-extrabold text-primary">
                           <Flame className="h-3.5 w-3.5 fill-primary/40 animate-flame text-primary" />
-                          {userProfile?.streak ?? 0} Day{(userProfile?.streak ?? 0) === 1 ? "" : "s"} 🔥
+                          {userProfile?.streak ?? 0} Day
+                          {(userProfile?.streak ?? 0) === 1 ? "" : "s"} 🔥
                         </span>
                       </div>
                     </div>
@@ -245,7 +246,9 @@ export function Navbar() {
                           <LayoutDashboard className="h-4 w-4 text-primary" />
                         </div>
                         <span className="flex-1">Dashboard</span>
-                        <span className="rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-extrabold text-primary">⌘D</span>
+                        <span className="rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-extrabold text-primary">
+                          ⌘D
+                        </span>
                       </Link>
 
                       <Link
@@ -257,8 +260,12 @@ export function Navbar() {
                         <div className="grid h-7.5 w-7.5 place-items-center rounded-lg border border-warning/40 bg-warning/20 shadow-sm transition-transform duration-200 group-hover:scale-110 group-hover:border-warning">
                           <Sparkles className="h-4 w-4 text-warning" />
                         </div>
-                        <span className="flex-1">Today's Task (Day {userProfile?.currentDay ?? 1})</span>
-                        <span className="rounded bg-warning/25 px-1.5 py-0.5 text-[9px] font-extrabold text-warning shadow-sm">NEW</span>
+                        <span className="flex-1">
+                          Today's Task (Day {userProfile?.currentDay ?? 1})
+                        </span>
+                        <span className="rounded bg-warning/25 px-1.5 py-0.5 text-[9px] font-extrabold text-warning shadow-sm">
+                          NEW
+                        </span>
                       </Link>
 
                       <Link
@@ -354,9 +361,7 @@ export function Navbar() {
                     {getInitials(userProfile.name)}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-foreground">
-                      {userProfile.name}
-                    </p>
+                    <p className="truncate text-sm font-bold text-foreground">{userProfile.name}</p>
                     <p className="truncate text-xs text-muted-foreground">{userProfile.email}</p>
                   </div>
                 </div>
