@@ -35,6 +35,9 @@ export function LoginPage() {
         email: email || "builder@abtalks.dev",
         loggedIn: true,
         joinedAt: new Date().toISOString(),
+        currentDay: 1,
+        streak: 0,
+        isFirstTime: true,
       };
       localStorage.setItem("abtalks_user", JSON.stringify(userData));
       window.dispatchEvent(new Event("abtalks_auth_change"));
@@ -54,6 +57,9 @@ export function LoginPage() {
         email: `builder@${provider}.com`,
         loggedIn: true,
         joinedAt: new Date().toISOString(),
+        currentDay: 1,
+        streak: 0,
+        isFirstTime: true,
       };
       localStorage.setItem("abtalks_user", JSON.stringify(userData));
       window.dispatchEvent(new Event("abtalks_auth_change"));

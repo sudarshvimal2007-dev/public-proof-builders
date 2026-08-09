@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Flame, Sparkles } from "lucide-react";
 import { Navbar } from "@/components/navbar";
@@ -45,7 +45,28 @@ const stateConfig: Record<
 };
 
 function Dashboard() {
-  const [state, setState] = useState<DashboardStateId>("active");
+  const [state, setState] = useState<DashboardStateId>("first-day");
+  const [userName, setUserName] = useState<string>(student.firstName);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("abtalks_user");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed?.name) {
+          setUserName(parsed.name.split(" ")[0]);
+        }
+        if (parsed?.currentDay === 1 || parsed?.isFirstTime) {
+          setState("first-day");
+        } else if (parsed?.currentDay === 12) {
+          setState("active");
+        }
+      }
+    } catch {
+      setState("first-day");
+    }
+  }, []);
+
   const cfg = stateConfig[state];
 
   return (
@@ -59,7 +80,7 @@ function Dashboard() {
           <div className="min-w-0">
             <p className="label-mono">Day {cfg.day} of {student.totalDays}</p>
             <h1 className="mt-2 text-3xl font-bold text-balance sm:text-4xl">
-              Good evening, {student.firstName}
+              Good evening, {userName}
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
               {cfg.streak > 0
