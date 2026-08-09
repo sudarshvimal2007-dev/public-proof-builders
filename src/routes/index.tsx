@@ -5,6 +5,7 @@ import { Hero } from "@/components/hero";
 import { Footer } from "@/components/footer";
 import { GlassCard } from "@/components/glass-card";
 import { CTASection } from "@/components/landing-sections";
+import { TestimonialsSection } from "@/components/testimonials";
 import { LiveCounter, AnimatedCounter } from "@/components/animated-counter";
 import {
   Flame,
@@ -83,6 +84,8 @@ function Landing() {
       <main className="mx-auto max-w-6xl px-4 pt-4 pb-16 sm:px-6">
         {/* Concise High-Impact Hero */}
         <Hero />
+
+        <TestimonialsSection />
 
         {/* Quick Navigation Hub Grid */}
         <section className="mt-12 sm:mt-16">

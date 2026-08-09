@@ -546,15 +546,15 @@ export function AchievementStrip() {
           animate={reduced || isHovered ? {} : { x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 25,
+            duration: 42,
             repeat: Infinity,
           }}
         >
           {achievementList.map((a, idx) => (
             <motion.div
               key={`${a.id}-${idx}`}
-              whileHover={{ scale: 1.05, y: -3 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              whileHover={{ scale: 1.02, y: -2 }}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
               onClick={() => setSelectedAchievement(a)}
               className={`card-surface group/achieve relative w-[176px] shrink-0 cursor-pointer p-4 transition-colors duration-300 ${
                 a.unlocked

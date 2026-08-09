@@ -16,9 +16,9 @@ import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
   { label: "Dashboard", to: "/dashboard" },
-  { label: "Challenge", to: "/challenge" },
-  { label: "How It Works", to: "/how-it-works" },
+  { label: "Days", to: "/challenge" },
   { label: "Leaderboard", to: "/leaderboard" },
+  { label: "How It Works", to: "/how-it-works" },
   { label: "About", to: "/about" },
 ];
 

@@ -79,8 +79,9 @@ export function Hero() {
           </p>
 
           <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-            Don't just learn to code. Build every day, prove your progress, and get recognized for
-            the work you put in.
+            ABTalks is an exciting 60-day challenge helping students code every day, share real
+            proof on GitHub and LinkedIn, track streaks, get AI guidance, and build verified
+            job-ready portfolios!
           </p>
 
           <dl className="mt-9 grid grid-cols-3 gap-3 border-t border-border pt-6 sm:gap-6">
@@ -113,16 +114,6 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="mt-14 flex flex-col items-center gap-2 lg:mt-20">
-        <span className="label-mono text-[9px]">Scroll to see how it works</span>
-        <span className="relative h-9 w-5 overflow-hidden rounded-full border border-border">
-          <ChevronDown
-            className="absolute inset-x-0 mx-auto h-3.5 w-3.5 text-primary"
-            style={{ animation: "scroll-hint 1.9s ease-in-out infinite" }}
-            aria-hidden="true"
-          />
-        </span>
-      </div>
     </section>
   );
 }

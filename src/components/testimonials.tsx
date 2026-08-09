@@ -29,7 +29,13 @@ function TestimonialCard({ t, index }: { t: (typeof testimonials)[0]; index: num
     .toUpperCase();
 
   return (
-    <div className="card-surface lift group/card relative w-[320px] shrink-0 p-5 sm:w-[380px] rounded-3xl border border-white/10 bg-surface/80 backdrop-blur-xl transition-colors duration-300 hover:border-primary/50 hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)]">
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="card-surface lift group/card relative w-[320px] shrink-0 p-5 sm:w-[380px] rounded-3xl border border-white/10 bg-surface/80 backdrop-blur-xl transition-colors duration-300 hover:border-primary/50 hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)]"
+    >
       {/* Card Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-3">
@@ -90,7 +96,7 @@ function TestimonialCard({ t, index }: { t: (typeof testimonials)[0]; index: num
           <span>{likes}</span>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -100,7 +106,7 @@ export function TestimonialsSection() {
   const row = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
   return (
-    <section className="py-20 lg:py-28 overflow-hidden">
+    <section className="-mt-2 py-10 overflow-hidden lg:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Wall of Proof Header with Live Indicator */}
         <div className="flex flex-col items-center text-center">
@@ -118,15 +124,18 @@ export function TestimonialsSection() {
           </h2>
 
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Hover any proof card to inspect. Powered by Framer Motion 60fps streaming real student
-            updates across India.
+            Hover any proof card to inspect real student progress and public build momentum.
           </p>
         </div>
       </div>
 
       {/* 60fps Framer Motion Automatic Marquee Motion */}
-      <div
-        className="group relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]"
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="group relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]"
         aria-label="Wall of Proof Live Stream"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -136,24 +145,24 @@ export function TestimonialsSection() {
           animate={reduced || isHovered ? {} : { x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 30,
+            duration: 48,
             repeat: Infinity,
           }}
         >
           {row.map((t, i) => (
             <motion.div
               key={`${t.name}-${i}`}
-              whileHover={{ scale: 1.03, y: -4 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              whileHover={{ scale: 1.01, y: -2 }}
+              transition={{ type: "spring", stiffness: 320, damping: 30 }}
             >
               <TestimonialCard t={t} index={i} />
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Tech Chips Footer */}
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-3 px-4 text-xs font-bold text-foreground">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3 px-4 text-xs font-bold text-foreground">
         <span className="rounded-full border border-white/15 bg-background/60 backdrop-blur-md px-4 py-2 shadow-sm">
           100% mobile-first
         </span>

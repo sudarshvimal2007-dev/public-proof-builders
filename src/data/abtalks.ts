@@ -277,6 +277,11 @@ export const activity: number[] = [
 
 export const dashboardStates = [
   {
+    id: "empty",
+    label: "New profile",
+    hint: "Onboarding",
+  },
+  {
     id: "first-day",
     label: "Day 1",
     hint: "First day",
@@ -290,11 +295,6 @@ export const dashboardStates = [
     id: "missed",
     label: "Missed day",
     hint: "Streak reset",
-  },
-  {
-    id: "empty",
-    label: "New profile",
-    hint: "Onboarding",
   },
 ] as const;
 
