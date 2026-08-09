@@ -78,3 +78,20 @@ export function SkeletonDashboard() {
     </div>
   );
 }
+
+export function SkeletonPage() {
+  return (
+    <div className="mx-auto max-w-6xl px-4 pt-28 pb-16 space-y-6 sm:px-6">
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-10 w-2/3 max-w-lg" />
+        <Skeleton className="h-5 w-1/2 max-w-md" />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 pt-6">
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+    </div>
+  );
+}

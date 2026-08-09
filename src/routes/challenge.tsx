@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
 import { Footer } from "@/components/footer";
 import { WhySection, ProgressSection, AchievementsSection, CTASection } from "@/components/landing-sections";
 import { GlassCard } from "@/components/glass-card";
+import { SkeletonPage } from "@/components/skeleton";
 import { Flame, CheckCircle2, ShieldCheck, ArrowRight, Zap, Target } from "lucide-react";
 
 const title = "The 60-Day Challenge — ABTalks";
@@ -46,6 +48,24 @@ const challengeRules = [
 ];
 
 function ChallengePage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen">
+        <AmbientBackdrop />
+        <Navbar />
+        <SkeletonPage />
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen">
       <AmbientBackdrop />

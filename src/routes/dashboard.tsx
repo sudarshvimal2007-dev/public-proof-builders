@@ -13,6 +13,7 @@ import {
   SubmissionStatus,
   TaskCard,
 } from "@/components/dashboard-cards";
+import { SkeletonDashboard } from "@/components/skeleton";
 import { GlassCard } from "@/components/glass-card";
 import { dashboardStates, student, submission, type DashboardStateId } from "@/data/abtalks";
 
@@ -48,6 +49,14 @@ function Dashboard() {
   const [state, setState] = useState<DashboardStateId>("first-day");
   const [userName, setUserName] = useState<string>(student.firstName);
   const [userStreak, setUserStreak] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     try {
@@ -93,6 +102,17 @@ function Dashboard() {
       } catch {}
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="relative min-h-screen">
+        <AmbientBackdrop />
+        <Navbar />
+        <SkeletonDashboard />
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen">
