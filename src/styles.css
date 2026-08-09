@@ -1286,3 +1286,63 @@
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+
+/* ==========================================================================
+   SPRINGO AI BUTTON & CHAT STYLES
+   ========================================================================== */
+.springo-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+  border-radius: 9999px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #00000080,
+    0px 5px 15px #00000040;
+  text-shadow: 1px 1px 2px #00000080;
+  isolation: isolate;
+}
+
+.springo-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 9999px;
+  filter: blur(0);
+  z-index: -1;
+  box-shadow: none;
+  background: conic-gradient(
+    #00000000 80deg,
+    #40baf7,
+    #f34ad7,
+    #5bfcc4,
+    #00000000 280deg
+  );
+  transition: all 0.3s ease;
+}
+
+.springo-btn:hover::before {
+  filter: blur(14px);
+}
+
+.springo-btn:active::before {
+  filter: blur(5px);
+  transform: translateY(1px);
+}
+
+.springo-btn:active {
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #00000099;
+  transform: translateY(1px);
+}

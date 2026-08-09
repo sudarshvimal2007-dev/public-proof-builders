@@ -15,6 +15,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import { RetroTV404 } from "../components/retro-tv-404";
 import { useNetworkStatus } from "../hooks/use-network-status";
 import { TopProgressBar } from "../components/top-progress-bar";
+import { SpringoAI } from "../components/springo-ai";
 
 function NotFoundComponent() {
   return (
@@ -118,7 +119,10 @@ function RootComponent() {
             onRetry={() => window.location.reload()}
           />
         ) : (
-          <Outlet />
+          <>
+            <Outlet />
+            <SpringoAI />
+          </>
         )}
       </ThemeProvider>
     </QueryClientProvider>
