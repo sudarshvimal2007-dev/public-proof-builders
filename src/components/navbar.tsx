@@ -297,10 +297,10 @@ export function Navbar() {
               </div>
             ) : (
               /* First-Time Log In Button */
-              <Link to="/login" className="golden-glow-btn h-10 w-36">
-                <span className="golden-glow-btn-inner font-extrabold">
+              <Link to="/login" className="golden-glow-btn">
+                <span className="golden-glow-btn-inner font-extrabold px-4 py-2">
                   Log In
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
               </Link>
             )}

@@ -230,7 +230,7 @@ export function LoginPage() {
             >
               <span className="golden-glow-btn-inner text-sm font-extrabold">
                 {loading ? (
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#ffd277] border-t-transparent" />
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#34d399] border-t-transparent" />
                 ) : success ? (
                   <span className="flex items-center gap-1.5 text-emerald-400">
                     <CheckCircle2 className="h-5 w-5" /> Authenticated!
