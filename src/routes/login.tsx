@@ -226,13 +226,13 @@ export function LoginPage() {
             <button
               type="submit"
               disabled={loading || success}
-              className="group mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl grad-primary text-sm font-bold text-primary-foreground shadow-[0_10px_30px_-10px_var(--color-primary)] transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-70"
+              className="group relative mt-3 flex min-h-12 w-full items-center justify-center gap-2.5 rounded-2xl liquid-glass-btn text-base font-extrabold shadow-[0_10px_35px_-5px_oklch(0.735_0.157_156_/_50%)] transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-70"
             >
               {loading ? (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
               ) : success ? (
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-5 w-5" /> Authenticated!
+                  <CheckCircle2 className="h-5 w-5 text-emerald-950" /> Authenticated!
                 </span>
               ) : (
                 <>
@@ -245,11 +245,11 @@ export function LoginPage() {
 
           {/* Social Divider */}
           <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+            <div className="h-px flex-1 bg-border/80" />
+            <span className="text-[11px] font-extrabold text-muted-foreground uppercase tracking-wider">
               Or continue with
             </span>
-            <div className="h-px flex-1 bg-border" />
+            <div className="h-px flex-1 bg-border/80" />
           </div>
 
           {/* Social Buttons */}
@@ -257,15 +257,15 @@ export function LoginPage() {
             <button
               type="button"
               onClick={() => handleSocialAuth("github")}
-              className="flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 py-2.5 text-xs font-semibold transition-all hover:border-primary/50 hover:bg-secondary"
+              className="flex items-center justify-center gap-2.5 rounded-xl liquid-glass-btn-secondary py-3 text-xs font-extrabold transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Github className="h-4 w-4" />
+              <Github className="h-4 w-4 text-foreground" />
               GitHub
             </button>
             <button
               type="button"
               onClick={() => handleSocialAuth("google")}
-              className="flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 py-2.5 text-xs font-semibold transition-all hover:border-primary/50 hover:bg-secondary"
+              className="flex items-center justify-center gap-2.5 rounded-xl liquid-glass-btn-secondary py-3 text-xs font-extrabold transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path
